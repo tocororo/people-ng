@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 import { HomeComponent } from './home/home.component';
-import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { PageNotFoundPeopleComponent } from './page-not-found-people/page-not-found-people.component';
 
 const routes: Routes = [
 	// {
@@ -16,7 +16,7 @@ const routes: Routes = [
 	},
 	{
 		path: '**',
-		component: PageNotFoundComponent
+		component: PageNotFoundPeopleComponent
 	}
 ];
 
