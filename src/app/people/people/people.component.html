@@ -1,0 +1,12 @@
+
+<mat-toolbar color="primary"
+    fxLayout="row wrap"
+    fxLayout.xs="column"
+    fxLayoutAlign="center center"
+    style="height: 100px; color: white; font-size: 2em;"
+>
+    <span>{{ title | translate }}</span>
+</mat-toolbar>
+
+<toco-progress [loading]="hasTaskInProgress"></toco-progress>
+
