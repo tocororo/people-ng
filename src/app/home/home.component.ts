@@ -1,6 +1,6 @@
 
 import { Component, OnInit } from "@angular/core";
-import { ActivatedRoute } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 import { TranslateService } from "@ngx-translate/core";
 
 import { ActionText, MetadataService } from "toco-lib";
@@ -17,7 +17,8 @@ export class HomeComponent implements OnInit
      */
 	public readonly actionText: typeof ActionText;
 
-	public constructor(private _activatedRoute: ActivatedRoute,
+	public constructor(private _router: Router,
+		private _activatedRoute: ActivatedRoute,
 		public transServ: TranslateService,
 		private _metadata: MetadataService)
 	{
@@ -29,6 +30,15 @@ export class HomeComponent implements OnInit
 		this._activatedRoute.url.subscribe(() => {
 			this._metadata.meta.updateTag({ name: "DC.title", content: "Personas" });
 			this._metadata.meta.updateTag({ name: "DC.description", content: "Gestiona los perfiles de los investigadores así como de otras personas relacionados con la investigación científica, identificando a cada una de ellas de manera unívoca y promoviendo la desambiguación de perfiles" });
+		});
+	}
+
+	public queryChange(event?: string): void
+	{
+		this._router.navigate(["search"], {
+			relativeTo: this._activatedRoute,
+			queryParams: { q: event },
+			queryParamsHandling: "",
 		});
 	}
 }

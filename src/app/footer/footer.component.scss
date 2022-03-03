@@ -1,8 +1,5 @@
-
 mat-toolbar.footer-height{
     height: auto !important;
-    padding-top: 20px;
-    padding-bottom: 20px;
 }
 .mat-toolbar-row, .mat-toolbar-single-row {
     white-space: normal !important;
@@ -31,16 +28,35 @@ mat-toolbar.footer-height{
     text-decoration: underline;
 }
 
-.footer-logo {
+.footer-logo
+{
     padding-left: 40px;
 }
 
-.footer-social {
+.footer-social
+{
     padding-right: 120px;
     margin-left: auto;
 }
 
-.footer-rigtside{
+.footer-rigtside
+{
     padding-right: 40px;
     margin-left: auto;
+}
+
+.w-50
+{
+    width: 50%;
+    min-width: 15em;
+}
+.w-100
+{
+    width: 100%;
+    min-width: 15em;
+}
+
+.pt-2em
+{
+    padding-top: 2em;
 }
