@@ -4,10 +4,15 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { ActionText } from 'toco-lib';
 
+import { SearchComponent } from './search/search.component';
 import { PeopleComponent } from './people/people.component';
 import { PersonResolverService } from './people-resolver.service';
 
 const surveyRoutes: Routes = [
+    {
+        path: 'search',
+        component: SearchComponent
+    },
 	{
 		path: '',
 		component: PeopleComponent,

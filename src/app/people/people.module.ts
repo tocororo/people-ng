@@ -22,10 +22,12 @@ import { MatDividerModule } from '@angular/material/divider';
 import { CoreModule, TocoFormsModule } from 'toco-lib';
 
 import { PeopleRoutingModule } from './people-routing.module';
+import { SearchComponent } from './search/search.component';
 import { PeopleComponent } from './people/people.component';
 
 @NgModule({
 	declarations: [
+		SearchComponent,
 		PeopleComponent,
 	],
 	imports: [

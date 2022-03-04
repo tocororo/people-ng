@@ -69,6 +69,12 @@
         "BUTTON_SEARCH": "Buscar"
     },
 
+    "TOCO_SEARCH_SEARCH": {
+        "SPAN_SEARCH_LABEL": "Búsqueda",
+        "BUTTON_SHOW_LIST_TOOLTIP": "Mostrar la lista",
+        "BUTTON_SHOW_STATS_TOOLTIP": "Mostrar estadísticas"
+    },
+
     "TOCO_NG_PAGINA_NO_ENCONT_DISCULPA": "¡Lo sentimos, la página que usted solicitó no pudo ser encontrada!",
     "TOCO_NG_PAGINA_NO_ENCONT_REDIRECCION": "Vamos a llevarlo a la página Principal",
     "TOCO_NG_PAGINA_NO_ENCONT_IMG_ALT_TEXT": "Personas",
