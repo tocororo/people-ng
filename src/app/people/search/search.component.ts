@@ -4,7 +4,7 @@ import { Component, HostListener, OnInit, ViewChild } from "@angular/core";
 import { MatDrawer, PageEvent } from "@angular/material";
 import { ActivatedRoute, NavigationExtras, Params, Router } from "@angular/router";
 
-import { AggregationsSelection, Organization, SearchResponse } from "toco-lib";
+import { AggregationsSelection, Organization, SearchResponse, QueryParamKey } from "toco-lib";
 
 import { OrgService } from "../org.service";
 
@@ -20,6 +20,16 @@ import { OrgService } from "../org.service";
 export class SearchComponent implements OnInit
 {
     /**
+     * Represents the `QueryParamKey` enum for internal use. 
+     */
+    public readonly queryParamKey: typeof QueryParamKey;
+
+    // /**
+    //  * Represents the `ChartType` enum for internal use. 
+    //  */
+    // public readonly chartType: typeof ChartType;
+
+    /**
      * Indicates the search result type. 
      * Its value is true if the search result is showed as a list. 
      * Its value is false if the search result is showed as charts. 
@@ -27,46 +37,11 @@ export class SearchComponent implements OnInit
      */
     private _searchResultType: boolean;
     public aggrKeys: Array<any>;
-    //TODO: Hacer las definiciones de `ChartType` y `LayoutPosition` como enums. 
-    // * Entonces se usan como tipos de los fields `chartType` y `layoutPosition` respectivamente. 
-    // * El campo `layoutPosition` sustituye al campo `currentlayout`.
-    // * El campo `currentlayout` desaparece. 
-    public chartType: "Polar Chart" | "Vertical Bar" | /* "Pie Grid" | */ "Gauge Chart";
-    public layoutPosition = [
-        {
-            name: "Derecha",
-            layout: "row-reverse",
-            aling: "center baseline",
-            width: "22",
-        },
-        {
-            name: "Izquierda",
-            layout: "row",
-            aling: "center baseline",
-            width: "22",
-        },
-        {
-            name: "Arriba",
-            layout: "column",
-            aling: "center center",
-            width: "90",
-        },
-        {
-            name: "Abajo",
-            layout: "column-reverse",
-            aling: "center center",
-            width: "90",
-        }
-    ];
-    public currentlayout;
-    public changeLayoutPosition(index: number): void
-    {
-        this.currentlayout = this.layoutPosition[index];
-    }
+    // public currentChartType: ChartType;
 
-    pageSize = 5;
-    pageIndex = 0;
-    pageSizeOptions: number[] = [5, 15, 25, 50, 100];
+    public pageSize: number;
+    public pageIndex: number;
+    public pageSizeOptions: number[];
 
     public query: string;
     public aggrsSelection: AggregationsSelection;
@@ -79,8 +54,7 @@ export class SearchComponent implements OnInit
      * Represents the response of the search. 
      */
     public sr: SearchResponse<Organization>;
-    queryParams: Params;
-    navigationExtras: NavigationExtras;
+    private _navigationExtras: NavigationExtras;
 
     public loading: boolean;
 
@@ -92,16 +66,23 @@ export class SearchComponent implements OnInit
         private _activatedRoute: ActivatedRoute,
         private _router: Router)
     {
+        this.queryParamKey = QueryParamKey;
+        // this.chartType = ChartType;
+
         this._searchResultType = true;  /* The search result is showed as a list. */
         this.aggrKeys = undefined;
-        this.chartType = "Polar Chart";
-        this.currentlayout = this.layoutPosition[0];
+        // this.currentChartType = this.chartType.polar;
+
+        this.pageSize = 5;
+        this.pageIndex = 0;
+        this.pageSizeOptions = [5, 15, 25, 50, 100];
 
         this.query = "";
         this.aggrsSelection = { };
 
         this._params = undefined;
         this.sr = undefined;
+        this._navigationExtras = undefined;
 
         this.loading = true;
     }
@@ -120,31 +101,29 @@ export class SearchComponent implements OnInit
 
                     switch (key)
                     {
-                        //TODO: Poner los valores de "size", "page", "q" and "aggrsSel" como valores de un enum; 
-                        // este enum se declara en el project "toco-ng" en el fichero "search-utils.ts" dentro de la carpeta "search". 
-                        case "size":
+                        case this.queryParamKey.size:
                             {
                                 this.pageSize = Number.parseInt(initQueryParams.get(key));
                                 break;
                             }
 
-                        case "page":
+                        case this.queryParamKey.page:
                             {
                                 this.pageIndex = Number.parseInt(initQueryParams.get(key));
                                 break;
                             }
 
-                        case "q":
+                        case this.queryParamKey.q:
                             {
                                 this.query = initQueryParams.get(key);
                                 break;
                             }
 
-                        default:  /* "aggrsSel" */
+                        default:  /* this.queryParamKey.aggrsSel */
                             {
                                 if (!this.aggrsSelection.hasOwnProperty(key))
                                 {
-                                    this.aggrsSelection[key] = [];
+                                    this.aggrsSelection[key] = [ ];
                                 }
                                 this.aggrsSelection[key].push(initQueryParams.get(key));
                                 break;
@@ -190,13 +169,13 @@ export class SearchComponent implements OnInit
     {
         this._params = new HttpParams();
 
-        this._params = this._params.set("size", this.pageSize.toString(10));
+        this._params = this._params.set(this.queryParamKey.size, this.pageSize.toString(10));
 
-        this._params = this._params.set("page", (this.pageIndex + 1).toString(10));
+        this._params = this._params.set(this.queryParamKey.page, (this.pageIndex + 1).toString(10));
 
-        this._params = this._params.set("q", this.query);
+        this._params = this._params.set(this.queryParamKey.q, this.query);
 
-        for (const aggrKey in this.aggrsSelection)
+        for (const aggrKey in this.aggrsSelection)  /* this.queryParamKey.aggrsSel */
         {
             this.aggrsSelection[aggrKey].forEach((bucketKey) => {
                 this._params = this._params.set(aggrKey, bucketKey);
@@ -259,29 +238,31 @@ export class SearchComponent implements OnInit
     {
         this.loading = true;
 
-        this.queryParams = {};
+        let queryParams: Params = { };
 
-        this.queryParams["size"] = this.pageSize.toString(10);
+        queryParams[this.queryParamKey.size] = this.pageSize.toString(10);
 
-        this.queryParams["page"] = this.pageIndex.toString(10);
+        queryParams[this.queryParamKey.page] = this.pageIndex.toString(10);
 
-        this.queryParams["q"] = this.query;
+        queryParams[this.queryParamKey.q] = this.query;
 
-        for (const aggrKey in this.aggrsSelection)
+        for (const aggrKey in this.aggrsSelection)  /* this.queryParamKey.aggrsSel */
         {
             this.aggrsSelection[aggrKey].forEach((bucketKey) => {
-                this.queryParams[aggrKey] = bucketKey;
+                queryParams[aggrKey] = bucketKey;
             });
         }
-        this.navigationExtras = {
+
+        this._navigationExtras = {
             relativeTo: this._activatedRoute,
-            queryParams: this.queryParams,
+            queryParams: queryParams,
             queryParamsHandling: "",
         };
 
-        this._router.navigate(["."], this.navigationExtras);
+        this._router.navigate(["."], this._navigationExtras);
     }
 
+    //TODO: What does this code do? 
     @HostListener('window:resize', ['$event'])
     public onResize(event: Event): void
     {

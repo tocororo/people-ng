@@ -38,10 +38,6 @@ style="height: 80px; padding: 0 16px;"
     >
     </toco-search-aggregations>
 
-    <!-- <toco-search-aggregations-visual *ngIf="sr"
-        [aggregations]="aggrKeys" [selectedAggr]="aggrsSelection" (keySelect)="aggrChange($event)"
-    >
-    </toco-search-aggregations-visual> -->
 </mat-drawer>
 
 <ng-container *ngIf="searchResultType; then thenTemplate_SearchList else elseTemplate_SearchCharts"></ng-container>
@@ -72,28 +68,27 @@ style="height: 80px; padding: 0 16px;"
 <ng-template #elseTemplate_SearchCharts>
     <div *ngIf="sr" class="m-1">
 
-        <div fxLayout="row nowrap" fxLayoutAlign="space-between center">
+        <h3 class="mat-h2" style="margin: 0; text-align: center; color: black;">{{ 'IMPLEMENTE_ESTO_ALEJANDRO' | translate }}</h3>
+
+        <!-- <div fxLayout="row nowrap" fxLayoutAlign="space-between center">
             <button mat-icon-button (click)="drawer.toggle()" matTooltip="Filtros avanzados">
                 <mat-icon>filter_list</mat-icon>
             </button>
 
             <mat-card>
-                <!-- <section class="example-section"> -->
-                <!--  <label class="example-margin">Align:</label> -->
-                <mat-radio-group [(ngModel)]="chartType">
-                    <mat-radio-button class="example-margin" value="Polar Chart">Pastel</mat-radio-button>
-                    <mat-radio-button class="example-margin" value="Vertical Bar">Barra</mat-radio-button>
-                    <!-- <mat-radio-button class="example-margin" value="Pie Grid">Pie Grid</mat-radio-button> -->
-                    <mat-radio-button class="example-margin" value="Gauge Chart">Calibración</mat-radio-button>
+                <mat-radio-group [(ngModel)]="currentChartType">
+                    <mat-radio-button class="mat-card-margin" value="chartType.polar">Pastel</mat-radio-button>
+                    <mat-radio-button class="mat-card-margin" value="chartType.verticalBar">Barra</mat-radio-button>
+                    <mat-radio-button class="mat-card-section" value="chartType.pieGrid">Pie Grid</mat-radio-button>
+                    <mat-radio-button class="mat-card-section" value="chartType.gauge">Calibración</mat-radio-button>
                 </mat-radio-group>
-                <!-- </section> -->
             </mat-card>
         </div>
 
         <toco-search-aggregations-visual
-            [chartType]="chartType" [aggregations]="aggrKeys" [selectedAggr]="aggrsSelection" (keySelect)="aggrChange($event)"
+            [chartType]="currentChartType" [aggregations]="aggrKeys" [selectedAggr]="aggrsSelection" (keySelect)="aggrChange($event)"
         >
-        </toco-search-aggregations-visual>
+        </toco-search-aggregations-visual> -->
 
     </div>
 </ng-template>
