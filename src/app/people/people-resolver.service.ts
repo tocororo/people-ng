@@ -4,7 +4,7 @@ import { Resolve, RouterStateSnapshot, ActivatedRouteSnapshot } from '@angular/r
 import { Observable } from 'rxjs';
 import { TranslateService } from '@ngx-translate/core';
 
-import { Hit } from 'toco-lib';
+import { SearchResponse } from 'toco-lib';
 
 import { Person } from './person.entity';
 import { PeopleService } from './people.service';
@@ -17,12 +17,12 @@ import { PeopleService } from './people.service';
 @Injectable({
 	providedIn: 'root',
 })
-export class PersonResolverService implements Resolve<Hit<Person>>
+export class PersonResolverService implements Resolve<SearchResponse<Person>>
 {
 	public constructor(private _transServ: TranslateService, private _peopleService: PeopleService)
 	{ }
 
-	public resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<Hit<Person>>
+	public resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<SearchResponse<Person>>
 	{
 		/* In the case of adding view, this occurs when the `uuid` variable is `undefined`, 
 		it needs to get an object with all its values set to `undefined`. 

@@ -4,9 +4,10 @@ import { Component, HostListener, OnInit, ViewChild } from "@angular/core";
 import { MatDrawer, PageEvent } from "@angular/material";
 import { ActivatedRoute, NavigationExtras, Params, Router } from "@angular/router";
 
-import { AggregationsSelection, Organization, SearchResponse, QueryParamKey } from "toco-lib";
+import { AggregationsSelection, Organization, OrganizationService, SearchResponse } from "toco-lib";
+import { PeopleService } from "../people.service";
+import { Person } from "../person.entity";
 
-import { OrgService } from "../org.service";
 
 /**
  * Represents a component that shows the result of a search based on aggregations. 
@@ -17,12 +18,11 @@ import { OrgService } from "../org.service";
     templateUrl: "./search.component.html",
     styleUrls: ["./search.component.scss"],
 })
-export class SearchComponent implements OnInit
-{
+export class SearchComponent implements OnInit {
     /**
      * Represents the `QueryParamKey` enum for internal use. 
      */
-    public readonly queryParamKey: typeof QueryParamKey;
+    // public readonly queryParamKey: typeof QueryParamKey;
 
     // /**
     //  * Represents the `ChartType` enum for internal use. 
@@ -35,7 +35,7 @@ export class SearchComponent implements OnInit
      * Its value is false if the search result is showed as charts. 
      * By default, its value is `true`. 
      */
-    private _searchResultType: boolean;
+    private searchResultType: boolean;
     public aggrKeys: Array<any>;
     // public currentChartType: ChartType;
 
@@ -49,12 +49,12 @@ export class SearchComponent implements OnInit
     /**
      * The search that was requested as an HTTP request/response body that represents serialized parameters. 
      */
-    private _params: HttpParams;
+    private params: HttpParams;
     /**
      * Represents the response of the search. 
      */
-    public sr: SearchResponse<Organization>;
-    private _navigationExtras: NavigationExtras;
+    public sr: SearchResponse<Person>;
+    private navigationExtras: NavigationExtras;
 
     public loading: boolean;
 
@@ -62,14 +62,14 @@ export class SearchComponent implements OnInit
     public drawer: MatDrawer;
 
     public constructor(
-        private _cuorService: OrgService,
-        private _activatedRoute: ActivatedRoute,
-        private _router: Router)
-    {
-        this.queryParamKey = QueryParamKey;
-        // this.chartType = ChartType;
+        private peopleService: PeopleService,
+        private activatedRoute: ActivatedRoute,
+        private router: Router) {
+        
+    }
 
-        this._searchResultType = true;  /* The search result is showed as a list. */
+    public ngOnInit(): void {
+        this.searchResultType = true;  /* The search result is showed as a list. */
         this.aggrKeys = undefined;
         // this.currentChartType = this.chartType.polar;
 
@@ -78,61 +78,47 @@ export class SearchComponent implements OnInit
         this.pageSizeOptions = [5, 15, 25, 50, 100];
 
         this.query = "";
-        this.aggrsSelection = { };
+        this.aggrsSelection = {};
 
-        this._params = undefined;
+        this.params = undefined;
         this.sr = undefined;
-        this._navigationExtras = undefined;
+        this.navigationExtras = undefined;
 
         this.loading = true;
-    }
 
-    public ngOnInit(): void
-    {
-        this._activatedRoute.queryParamMap.subscribe({
+        this.activatedRoute.queryParamMap.subscribe({
             next: (initQueryParams) => {
-                console.log("SearchComponent: _activatedRoute.queryParamMap");
+                this.aggrsSelection = {};
+                console.log(initQueryParams);
                 
-                this.aggrsSelection = { };
 
-                for (let index = 0; index < initQueryParams.keys.length; ++index)
-                {
+                for (let index = 0; index < initQueryParams.keys.length; index++) {
                     const key = initQueryParams.keys[index];
 
-                    switch (key)
-                    {
-                        case this.queryParamKey.size:
-                            {
-                                this.pageSize = Number.parseInt(initQueryParams.get(key));
-                                break;
-                            }
+                    switch (key) {
+                        case "size":
+                            this.pageSize = Number.parseInt(initQueryParams.get(key));
+                            break;
 
-                        case this.queryParamKey.page:
-                            {
-                                this.pageIndex = Number.parseInt(initQueryParams.get(key));
-                                break;
-                            }
+                        case "page":
+                            this.pageIndex = Number.parseInt(initQueryParams.get(key));
+                            break;
 
-                        case this.queryParamKey.q:
-                            {
-                                this.query = initQueryParams.get(key);
-                                break;
-                            }
+                        case "q":
+                            this.query = initQueryParams.get(key);
+                            break;
 
-                        default:  /* this.queryParamKey.aggrsSel */
-                            {
-                                if (!this.aggrsSelection.hasOwnProperty(key))
-                                {
-                                    this.aggrsSelection[key] = [ ];
-                                }
-                                this.aggrsSelection[key].push(initQueryParams.get(key));
-                                break;
+                        default:
+                            if (!this.aggrsSelection.hasOwnProperty(key)) {
+                                this.aggrsSelection[key] = [];
                             }
+                            this.aggrsSelection[key].push(initQueryParams.get(key));
+                            break;
                     }
                 }
 
-                this._updateFetchParams();
-                this._fetchSearchRequested();
+                this.updateFetchParams();
+                this.fetchSearchRequested();
             },
 
             error: (e) => { },
@@ -147,38 +133,33 @@ export class SearchComponent implements OnInit
      * Its value is false if the search result is showed as charts. 
      * By default, its value is `true`. 
      */
-    public get searchResultType(): boolean
-    {
-        return this._searchResultType;
-    }
+    // public get searchResultType(): boolean {
+    //     return this._searchResultType;
+    // }
 
     /**
      * Toggles the view that is used to show the search result. 
      * If it changes to true, then the search result is showed as a list. 
      * If it changes to false, then the search result is showed as charts. 
      */
-    public changeView(): void
-    {
-        this._searchResultType = !this._searchResultType;
+    public changeView(): void {
+        this.searchResultType = !this.searchResultType;
     }
 
     /**
-     * Updates the `_params` that will be used to fetch the search. 
+     * Updates the `params` that will be used to fetch the search. 
      */
-    private _updateFetchParams(): void
-    {
-        this._params = new HttpParams();
+    private updateFetchParams(): void {
+        this.params = new HttpParams();
+        
+        this.params = this.params.set("size", this.pageSize.toString(10));
 
-        this._params = this._params.set(this.queryParamKey.size, this.pageSize.toString(10));
-
-        this._params = this._params.set(this.queryParamKey.page, (this.pageIndex + 1).toString(10));
-
-        this._params = this._params.set(this.queryParamKey.q, this.query);
-
-        for (const aggrKey in this.aggrsSelection)  /* this.queryParamKey.aggrsSel */
-        {
+        this.params = this.params.set("page", (this.pageIndex + 1).toString(10));
+    
+        this.params = this.params.set("q", this.query);
+        for (const aggrKey in this.aggrsSelection)  /* this.queryParamKey.aggrsSel */ {
             this.aggrsSelection[aggrKey].forEach((bucketKey) => {
-                this._params = this._params.set(aggrKey, bucketKey);
+                this.params = this.params.set(aggrKey, bucketKey);
             });
         }
     }
@@ -186,11 +167,11 @@ export class SearchComponent implements OnInit
     /**
      * Fetches the search that was requested using the `_params`. 
      */
-    private _fetchSearchRequested(): void
-    {
-        this._cuorService.getOrganizations(this._params).subscribe(
-            (response: SearchResponse<Organization>) => {
-
+    private fetchSearchRequested(): void {
+        this.peopleService.getPeople(this.params).subscribe(
+            (response: SearchResponse<Person>) => {
+                console.log('fetchSearchRequested', response);
+                
                 // this.pageEvent.length = response.hits.total;
                 this.sr = response;
 
@@ -215,64 +196,56 @@ export class SearchComponent implements OnInit
         );
     }
 
-    public pageChange(event?: PageEvent): void
-    {
+    public pageChange(event?: PageEvent): void {
         this.pageSize = event.pageSize;
         this.pageIndex = event.pageIndex;
-        this._updateQueryParams();
+        this.updateQueryParams();
     }
 
-    public aggrChange(event/* ?: AggregationsSelection */): void
-    {
+    public aggrChange(event/* ?: AggregationsSelection */): void {
         this.aggrsSelection = event;
-        this._updateQueryParams();
+        this.updateQueryParams();
     }
 
-    public queryChange(event?: string): void
-    {
+    public queryChange(event?: string): void {
         this.query = event;
-        this._updateQueryParams();
+        this.updateQueryParams();
     }
 
-    private _updateQueryParams(): void
-    {
+    private updateQueryParams(): void {
         this.loading = true;
 
-        let queryParams: Params = { };
+        let queryParams: Params = {};
 
-        queryParams[this.queryParamKey.size] = this.pageSize.toString(10);
+        queryParams["size"] = this.pageSize.toString(10);
 
-        queryParams[this.queryParamKey.page] = this.pageIndex.toString(10);
+        queryParams["page"] = this.pageIndex.toString(10);
+    
+        queryParams["q"] = this.query;
 
-        queryParams[this.queryParamKey.q] = this.query;
-
-        for (const aggrKey in this.aggrsSelection)  /* this.queryParamKey.aggrsSel */
-        {
+        for (const aggrKey in this.aggrsSelection)  /* this.queryParamKey.aggrsSel */ {
             this.aggrsSelection[aggrKey].forEach((bucketKey) => {
                 queryParams[aggrKey] = bucketKey;
             });
         }
 
-        this._navigationExtras = {
-            relativeTo: this._activatedRoute,
+        this.navigationExtras = {
+            relativeTo: this.activatedRoute,
             queryParams: queryParams,
             queryParamsHandling: "",
         };
 
-        this._router.navigate(["."], this._navigationExtras);
+        this.router.navigate(["."], this.navigationExtras);
     }
 
     //TODO: What does this code do? 
     @HostListener('window:resize', ['$event'])
-    public onResize(event: Event): void
-    {
+    public onResize(event: Event): void {
         // console.log("window:resize", window.innerWidth);
-        if (window.innerWidth <= 740)
-        {
+        if (window.innerWidth <= 740) {
             this.drawer.opened = false;
         }
-        else
-        {
+        else {
             this.drawer.opened = true;
         }
     }

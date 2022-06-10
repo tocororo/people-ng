@@ -17,7 +17,7 @@ export class EnvironmentImpl implements Environment {
   production = false;
   sceibaHost = 'https://sceiba.cu/';
   cuorHost = 'https://organizaciones.sceiba.cu/';
-  sceibaApi = 'https://sceiba.cu/api/';
+  sceibaApi = 'http://localhost:3000/';
   cuorApi = 'https://organizaciones.sceiba.cu:5000/api/';
 
   appHost = 'https://localhost:4200';

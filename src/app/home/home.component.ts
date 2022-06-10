@@ -35,7 +35,7 @@ export class HomeComponent implements OnInit
 
 	public queryChange(event?: string): void
 	{
-		this._router.navigate(["people", "search"], {
+		this._router.navigate(["search"], {
 			relativeTo: this._activatedRoute,
 			queryParams: { q: event },
 			queryParamsHandling: "",

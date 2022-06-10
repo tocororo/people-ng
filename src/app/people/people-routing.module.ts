@@ -7,12 +7,10 @@ import { ActionText } from 'toco-lib';
 import { SearchComponent } from './search/search.component';
 import { PeopleComponent } from './people/people.component';
 import { PersonResolverService } from './people-resolver.service';
+import { ProfileComponent } from './profile/profile.component';
 
 const surveyRoutes: Routes = [
-    {
-        path: 'search',
-        component: SearchComponent
-    },
+    
 	{
 		path: '',
 		component: PeopleComponent,

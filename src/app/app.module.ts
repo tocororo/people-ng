@@ -7,7 +7,6 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { RecaptchaModule } from 'ng-recaptcha';
 import { MarkdownModule } from 'ngx-markdown';
 
 import { MatButtonModule } from '@angular/material/button';
@@ -20,6 +19,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatPaginatorModule, MatSidenavModule } from '@angular/material';
 
 import { CoreModule, Environment, SearchModule } from 'toco-lib';
 import { environment } from 'src/environments/environment';
@@ -29,7 +29,9 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { PageNotFoundPeopleComponent } from './page-not-found-people/page-not-found-people.component';
 import { FooterComponent } from './footer/footer.component';
-import { ContactComponent } from './contact/contact.component';
+import { ProfileComponent } from './people/profile/profile.component';
+import { SearchComponent } from './people/search/search.component';
+import { SearchListComponent } from './people/search-list/search-list.component';
 
 export function createTranslateLoader(http: HttpClient): TranslateHttpLoader
 {
@@ -42,7 +44,9 @@ export function createTranslateLoader(http: HttpClient): TranslateHttpLoader
 		HomeComponent,
 		PageNotFoundPeopleComponent,
 		FooterComponent,
-		ContactComponent
+		ProfileComponent,
+		SearchComponent,
+		SearchListComponent,
 	],
 	imports: [
 		BrowserModule,
@@ -57,7 +61,6 @@ export function createTranslateLoader(http: HttpClient): TranslateHttpLoader
 		}),
 		ReactiveFormsModule,
 		FlexLayoutModule,
-		RecaptchaModule,
 		MarkdownModule.forRoot({
 			loader: HttpClient
 		}),
@@ -72,6 +75,8 @@ export function createTranslateLoader(http: HttpClient): TranslateHttpLoader
 		MatFormFieldModule,
 		MatInputModule,
 		MatSnackBarModule,
+		MatSidenavModule,
+		MatPaginatorModule,
 
 		CoreModule,
 		SearchModule,
