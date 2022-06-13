@@ -1,30 +1,36 @@
 
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import {Router, RoutesRecognized} from '@angular/router';
 import { MatSnackBar } from '@angular/material';
 import { TranslateService } from '@ngx-translate/core';
 
 import { convertLangFromNumberToString, Environment } from 'toco-lib';
+
+export enum Layouts {
+  People,
+  Main,
+}
 
 @Component({
 	selector: 'app-root',
 	templateUrl: './app.component.html',
 	styleUrls: ['./app.component.scss']
 })
+
 export class AppComponent
 {
 	/**
-	  * Returns the available language texts. 
+	  * Returns the available language texts.
 	  */
 	public languageTexts: string[];
 	/**
-	 * Returns the available language abbreviations. 
+	 * Returns the available language abbreviations.
 	 */
 	public languageAbbrs: string[];
 	/**
-	 * Returns the language currently used as number. 
-	 * The Spanish language is: 0. It is the default. 
-	 * The English language is: 1. 
+	 * Returns the language currently used as number.
+	 * The Spanish language is: 0. It is the default.
+	 * The English language is: 1.
 	 */
 	public currentLang: number;
 
@@ -33,6 +39,9 @@ export class AppComponent
 	public footerInformation: Array<{ name: string, url: string, useRouterLink: boolean }>;
 
 	public sceibaHost: string;
+
+  public Layouts = Layouts;
+  public layout: Layouts;
 
 	public constructor(private _env: Environment,
 		// private _matomoInjector: MatomoInjector,
@@ -70,11 +79,17 @@ export class AppComponent
 		this.footerInformation.push({ name: "PRIVACIDAD", url: "/help/policy", useRouterLink: true });
 		// this.footerInformation.push({ name: "PRIVACIDAD", url: "https://sceiba-lab.upr.edu.cu/page/politicas", useRouterLink: false});
 		this.footerInformation.push({ name: "CONTACTOS", url: "/help/contact", useRouterLink: true });
+
+    this._router.events.subscribe((data) => {
+      if (data instanceof RoutesRecognized) {
+        this.layout = data.state.root.firstChild.data.layout;
+      }
+    });
 	}
 
 	/**
-	 * Sets the current language. 
-	 * @param index Zero-based index that indicates the current language. 
+	 * Sets the current language.
+	 * @param index Zero-based index that indicates the current language.
 	 */
 	public setLanguage(index: number): void
 	{
