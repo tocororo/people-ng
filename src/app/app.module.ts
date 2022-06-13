@@ -32,6 +32,9 @@ import { FooterComponent } from './footer/footer.component';
 import { ProfileComponent } from './people/profile/profile.component';
 import { SearchComponent } from './people/search/search.component';
 import { SearchListComponent } from './people/search-list/search-list.component';
+import { PeopleViewComponent } from './people-view/people-view.component';
+import {MainlayoutComponent} from "./layout/mainlayout/mainlayout.component";
+import {PeopleLayoutComponent} from "./layout/people-layout/people-layout.component";
 import { HeaderComponent } from './header/header.component';
 import { MenuItemComponent } from './header/menu-item/menu-item.component';
 import { MenuComponent } from './header/menu/menu.component';
@@ -42,6 +45,10 @@ export function createTranslateLoader(http: HttpClient): TranslateHttpLoader
 }
 
 @NgModule({
+	exports: [
+    MainlayoutComponent,
+    PeopleLayoutComponent
+    ],
 	declarations: [
 		AppComponent,
 		HomeComponent,
@@ -50,6 +57,9 @@ export function createTranslateLoader(http: HttpClient): TranslateHttpLoader
 		ProfileComponent,
 		SearchComponent,
 		SearchListComponent,
+		PeopleViewComponent,
+    MainlayoutComponent,
+    PeopleLayoutComponent,
 		HeaderComponent,
 		MenuComponent,
     MenuItemComponent
