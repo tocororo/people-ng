@@ -20,6 +20,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatPaginatorModule, MatSidenavModule } from '@angular/material';
+import {MatTabsModule} from '@angular/material/tabs';
 
 import { CoreModule, Environment, SearchModule } from 'toco-lib';
 import { environment } from 'src/environments/environment';
@@ -93,6 +94,7 @@ export function createTranslateLoader(http: HttpClient): TranslateHttpLoader
 		MatSnackBarModule,
 		MatSidenavModule,
 		MatPaginatorModule,
+    MatTabsModule,
 
 		CoreModule,
 		SearchModule,
