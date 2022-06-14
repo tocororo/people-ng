@@ -31,7 +31,7 @@ const routes: Routes = [
     data: { layout: Layouts.Main },
 	},
 	{
-		path: 'people-info/:id',
+		path: ':id/view',
 		component: PeopleViewComponent,
     data: { layout: Layouts.People },
 	},
