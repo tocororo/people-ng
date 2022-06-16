@@ -1,16 +1,38 @@
-
-.header {
-  height: 450px;
+.wrapper {
+  height: 580px;
   width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
-}
+  flex-direction: column;
 
-mat-icon {
-  width: 200px;
-  height: 200px;
-  font-size: 200px;
+  .header {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    mat-icon {
+      width: 200px;
+      height: 200px;
+      font-size: 200px;
+    }
+
+  }
+
+  .status {
+    margin-top: 20px;
+    .matChipStatus {
+      background-color: white;
+      box-shadow: rgb(255 255 255 / 50%) 1px 3px 12px 4px;
+      font-weight: 550;
+      padding: 25px;
+    }
+    mat-icon {
+      margin-bottom: 2px;
+      margin-right: 5px;
+    }
+  }
 }
 
 .person-primary-info {
@@ -35,8 +57,18 @@ mat-icon {
 }
 
 @media screen and (max-width: 599px){
-  .header {
-    height: 550px;
+  :host ::ng-deep .mat-chip-list-wrapper {
+    justify-content: center;
+  }
+  .wrapper {
+    height: 650px;
+    justify-content: flex-start;
+    padding-top: 30px;
+
+    .status {
+      margin-top: 0 !important;
+      padding: 30px 40px !important;
+    }
   }
 
   .person-primary-info {

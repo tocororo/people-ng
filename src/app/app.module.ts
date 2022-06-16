@@ -21,6 +21,9 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatPaginatorModule, MatSidenavModule } from '@angular/material';
 import {MatTabsModule} from '@angular/material/tabs';
+import {MatChipsModule} from '@angular/material/chips';
+import {MatExpansionModule} from '@angular/material/expansion';
+import {MatListModule} from '@angular/material/list';
 
 import { CoreModule, Environment, SearchModule } from 'toco-lib';
 import { environment } from 'src/environments/environment';
@@ -36,6 +39,7 @@ import { SearchListComponent } from './people/search-list/search-list.component'
 import { PeopleViewComponent } from './people-view/people-view.component';
 import {MainlayoutComponent} from "./layout/mainlayout/mainlayout.component";
 import {PeopleLayoutComponent} from "./layout/people-layout/people-layout.component";
+import { GeneralTabComponent } from './people-view/general-tab/general-tab.component';
 import { HeaderComponent } from './header/header.component';
 import { MenuItemComponent } from './header/menu-item/menu-item.component';
 import { MenuComponent } from './header/menu/menu.component';
@@ -61,6 +65,7 @@ export function createTranslateLoader(http: HttpClient): TranslateHttpLoader
 		PeopleViewComponent,
     MainlayoutComponent,
     PeopleLayoutComponent,
+    GeneralTabComponent,
 		HeaderComponent,
 		MenuComponent,
     MenuItemComponent
@@ -95,6 +100,9 @@ export function createTranslateLoader(http: HttpClient): TranslateHttpLoader
 		MatSidenavModule,
 		MatPaginatorModule,
     MatTabsModule,
+    MatChipsModule,
+    MatExpansionModule,
+    MatListModule,
 
 		CoreModule,
 		SearchModule,
