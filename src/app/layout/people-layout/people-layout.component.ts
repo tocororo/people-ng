@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {Person} from '../../people/person.entity';
 
 @Component({
   selector: 'app-people-layout',
@@ -7,9 +8,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PeopleLayoutComponent implements OnInit {
 
+  public people: Person;
+
   constructor() { }
 
   ngOnInit() {
+    this.people = {
+      name: 'Alejandro',
+      lastName: 'Cabrera Mena',
+      country: 'Cuba',
+      email: 'alejandro97.acm@gmail.com',
+      active: true,
+      publicProfile: false
+    };
   }
 
 }

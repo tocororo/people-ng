@@ -1,12 +1,30 @@
-<div class="bg-primary-color header"
-  fxLayout.xs="column"
->
-  <mat-icon> account_circle</mat-icon>
-  <div class="person-primary-info">
-    <p class="title">Alejandro Cabrera Mena</p>
-    <p class="sub-title">Pinar del Rio, Cuba</p>
-    <p class="sub-title">alejandro97.acm@gmail.com</p>
+<div class="bg-primary-color  wrapper">
+  <div class="header"
+    fxLayout.xs="column"
+  >
+    <mat-icon> account_circle</mat-icon>
+    <div class="person-primary-info">
+      <p class="title">{{people.name}} {{people.lastName}}</p>
+      <p class="sub-title">{{people.email}}</p>
+      <p class="sub-title">{{people.country}}</p>
+    </div>
   </div>
+
+  <mat-chip-list aria-label="Fish selection" class="status">
+    <mat-chip
+      style="font-size: 26px"
+      class="matChipStatus"
+      [ngStyle]="{'color': people.active ? 'green' : '#dd2c00', 'margin-right': '80px'}"
+      [ngStyle.xs]="{'color': people.active ? 'green' : '#dd2c00', 'margin-right': '0', 'margin-bottom': '20px'}"
+    >
+      <mat-icon>fiber_manual_record</mat-icon>
+      {{(people.active ? 'active' : 'disabled') | translate}}
+    </mat-chip>
+    <mat-chip selected style="font-size: 26px" class="matChipStatus" [ngStyle]="{'color': people.publicProfile ? 'green' : 'orange'}">
+      <mat-icon>fiber_manual_record</mat-icon>
+      {{(people.publicProfile ? 'restricted' : 'unRestricted') | translate}}
+    </mat-chip>
+  </mat-chip-list>
 </div>
 
 <div fxLayout="row"
