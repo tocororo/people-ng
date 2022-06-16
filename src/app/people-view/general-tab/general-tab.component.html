@@ -1,0 +1,74 @@
+<div class="wrapper">
+<!--  text row-->
+  <div *ngFor="let ele of text" class="row" fxLayout.xs="column">
+    <span class="title">{{ele | translate}}</span>
+    <span class="data-elements">{{people[ele]}}</span>
+  </div>
+<!--  accordion identifiers-->
+  <div class="row" fxLayout.xs="column">
+    <mat-accordion>
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            <span class="title">{{'identifiers' | translate}}</span>
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <mat-list role="list">
+          <mat-list-item role="listitem" *ngFor="let item of people['identifiers']">
+            <span  style="opacity: 0.6; margin-right: 10px">{{item.idtype}} : </span>
+            <span  class="data-elements">{{item.value}}</span>
+          </mat-list-item>
+        </mat-list>
+      </mat-expansion-panel>
+    </mat-accordion>
+  </div>
+<!--  chips row-->
+  <div  *ngFor="let ele of chips" class="row" fxLayout.xs="column">
+    <span class="title">{{ele | translate}}</span>
+    <mat-chip-list aria-label="Fish selection">
+      <mat-chip *ngFor="let item of people[ele]" color="accent" selected>{{item}}</mat-chip>
+    </mat-chip-list>
+  </div>
+<!--  accordion row-->
+  <div  *ngFor="let ele of accordion" class="row" fxLayout.xs="column">
+    <mat-accordion>
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            <span class="title">{{ele | translate}}</span>
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <mat-list role="list">
+          <mat-list-item role="listitem" *ngFor="let item of people[ele]"><span  class="data-elements">{{item}}</span></mat-list-item>
+        </mat-list>
+      </mat-expansion-panel>
+    </mat-accordion>
+  </div>
+<!--  rolesSceiba row-->
+  <div  class="row" fxLayout.xs="column">
+    <span class="title">{{'rolesSceiba' | translate}}</span>
+    <mat-chip-list aria-label="Fish selection">
+      <mat-chip *ngFor="let item of people['rolesSceiba']" color="accent" selected>{{item.name}}</mat-chip>
+    </mat-chip-list>
+  </div>
+<!--  respPublications row-->
+  <div  class="row" fxLayout.xs="column">
+    <mat-accordion>
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            <span class="title">{{'respPublications' | translate}}</span>
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <mat-list role="list">
+          <mat-list-item role="listitem" *ngFor="let item of people['respPublications']">
+            <span class="data-elements" style="margin-right: 10px">Revista {{item['revista']}} : </span>
+            <mat-chip-list aria-label="Fish selection">
+              <mat-chip *ngFor="let role of item['roles']" color="accent" selected>{{role}}</mat-chip>
+            </mat-chip-list>
+          </mat-list-item>
+        </mat-list>
+      </mat-expansion-panel>
+    </mat-accordion>
+  </div>
+</div>
