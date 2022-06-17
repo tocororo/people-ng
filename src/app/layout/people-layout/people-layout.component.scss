@@ -36,7 +36,7 @@
 }
 
 .person-primary-info {
-    margin-left: 50px;
+    padding-left: 50px;
 
   .title, .sub-title {
     color: white;
@@ -45,7 +45,7 @@
   }
 
     .title {
-      font-size: 30px;
+      font-size: 40px;
       font-weight: 800;
     }
 
@@ -61,7 +61,7 @@
     justify-content: center;
   }
   .wrapper {
-    height: 650px;
+    height: 680px;
     justify-content: flex-start;
     padding-top: 30px;
 
@@ -72,6 +72,6 @@
   }
 
   .person-primary-info {
-    margin-left: 0;
+    padding-left: 40px;
   }
 }
