@@ -8,7 +8,7 @@ import {Person} from '../../people/person.entity';
 })
 export class GeneralTabComponent implements OnInit {
 
-  public people: Person;
+  public people: any;
   public text = ['name', 'lastName', 'gender', 'country', 'email', 'url'];
   public chips = ['researchInterests', 'keyWords', 'aliases'];
   public accordion = ['affiliations', 'subaffiliations', 'boardMember'];
@@ -29,7 +29,7 @@ export class GeneralTabComponent implements OnInit {
       aliases: ['aliases1', 'aliases2'],
       academicTitles: ['master'],
       affiliations: ['affiliations1'],
-      subaffiliations: ['subAffiliations1, subAffiliations2'],
+      subaffiliations: ['subAffiliations1', 'subAffiliations2'],
       boardMember: ['boardMember'],
       rolesSceiba: [{id: '1', name: 'editor', description: ''}],
       respPublications: [{revista: 'Mendive', roles: ['revisor']}],

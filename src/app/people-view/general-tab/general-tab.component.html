@@ -39,7 +39,9 @@
           </mat-panel-title>
         </mat-expansion-panel-header>
         <mat-list role="list">
-          <mat-list-item role="listitem" *ngFor="let item of people[ele]"><span  class="data-elements">{{item}}</span></mat-list-item>
+          <mat-list-item role="listitem" *ngFor="let item of people[ele]" >
+            <span  class="data-elements">{{item}}</span>
+          </mat-list-item>
         </mat-list>
       </mat-expansion-panel>
     </mat-accordion>
