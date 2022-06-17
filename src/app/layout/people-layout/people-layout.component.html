@@ -20,7 +20,13 @@
       <mat-icon>fiber_manual_record</mat-icon>
       {{(people.active ? 'active' : 'disabled') | translate}}
     </mat-chip>
-    <mat-chip selected style="font-size: 26px" class="matChipStatus" [ngStyle]="{'color': people.publicProfile ? 'green' : 'orange'}">
+    <mat-chip
+      selected
+      style="font-size: 26px"
+      class="matChipStatus"
+      [ngStyle]="{'color': people.publicProfile ? 'green' : 'orange'}"
+      [ngStyle.xs]="{'color': people.publicProfile ? 'green' : 'orange', 'margin-bottom': '20px'}"
+    >
       <mat-icon>fiber_manual_record</mat-icon>
       {{(people.publicProfile ? 'restricted' : 'unRestricted') | translate}}
     </mat-chip>

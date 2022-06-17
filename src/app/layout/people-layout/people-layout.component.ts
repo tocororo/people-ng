@@ -8,7 +8,7 @@ import {Person} from '../../people/person.entity';
 })
 export class PeopleLayoutComponent implements OnInit {
 
-  public people: Person;
+  public people: any;
 
   constructor() { }
 
