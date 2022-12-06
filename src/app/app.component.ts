@@ -1,16 +1,22 @@
 
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import {Router, RoutesRecognized} from '@angular/router';
 import { MatSnackBar } from '@angular/material';
 import { TranslateService } from '@ngx-translate/core';
 
 import { convertLangFromNumberToString, Environment } from 'toco-lib';
+
+export enum Layouts {
+  People,
+  Main,
+}
 
 @Component({
 	selector: 'app-root',
 	templateUrl: './app.component.html',
 	styleUrls: ['./app.component.scss']
 })
+
 export class AppComponent
 {
 	/**
@@ -33,6 +39,9 @@ export class AppComponent
 	public footerInformation: Array<{ name: string, url: string, useRouterLink: boolean }>;
 
 	public sceibaHost: string;
+
+  public Layouts = Layouts;
+  public layout: Layouts;
 
 	public constructor(private _env: Environment,
 		// private _matomoInjector: MatomoInjector,
@@ -70,6 +79,12 @@ export class AppComponent
 		this.footerInformation.push({ name: "PRIVACIDAD", url: "/help/policy", useRouterLink: true });
 		// this.footerInformation.push({ name: "PRIVACIDAD", url: "https://sceiba-lab.upr.edu.cu/page/politicas", useRouterLink: false});
 		this.footerInformation.push({ name: "CONTACTOS", url: "/help/contact", useRouterLink: true });
+
+    this._router.events.subscribe((data) => {
+      if (data instanceof RoutesRecognized) {
+        this.layout = data.state.root.firstChild.data.layout;
+      }
+    });
 	}
 
 	/**

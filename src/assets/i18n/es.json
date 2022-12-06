@@ -122,5 +122,26 @@
 
     "TOCO_NG_ERROR_MSG_TEXTO_INVAL": "El texto está incorrecto.",
 
-    "TOCO_NG_ERROR_MSG_URL_INVAL": "La url está incorrecta."
+    "TOCO_NG_ERROR_MSG_URL_INVAL": "La url está incorrecta.",
+
+  "active":  "Activo",
+  "disabled": "Deshabilitado",
+  "restricted":  "Restringido",
+  "unRestricted": "Sin restricciones",
+  "name": "Nombre :",
+  "lastName": "Apellidos :",
+  "gender": "Género :",
+  "country":  "País :",
+  "email": "Correo electrónico :",
+  "url": "URL al perfil en Sceiba :",
+  "identifiers": "Identificadores",
+  "researchInterests": "Vocabulario UNESCO :",
+  "keyWords": "Palabras claves :",
+  "aliases": "Alias :",
+  "academicTitles": "Títulos académicos :",
+  "affiliations":  "Afiliaciones :",
+  "subaffiliations": "Subafiliaciones :",
+  "boardMember": "Miembro del Consejo ( Responsabilidades ) :",
+  "rolesSceiba": "Roles en Sceiba :",
+  "respPublications": "Responsabilidad sobre las publicaciones :"
 }
