@@ -14,17 +14,17 @@ import { convertLangFromNumberToString, Environment } from 'toco-lib';
 export class AppComponent
 {
 	/**
-	  * Returns the available language texts. 
+	  * Returns the available language texts.
 	  */
 	public languageTexts: string[];
 	/**
-	 * Returns the available language abbreviations. 
+	 * Returns the available language abbreviations.
 	 */
 	public languageAbbrs: string[];
 	/**
-	 * Returns the language currently used as number. 
-	 * The Spanish language is: 0. It is the default. 
-	 * The English language is: 1. 
+	 * Returns the language currently used as number.
+	 * The Spanish language is: 0. It is the default.
+	 * The English language is: 1.
 	 */
 	public currentLang: number;
 
@@ -73,8 +73,8 @@ export class AppComponent
 	}
 
 	/**
-	 * Sets the current language. 
-	 * @param index Zero-based index that indicates the current language. 
+	 * Sets the current language.
+	 * @param index Zero-based index that indicates the current language.
 	 */
 	public setLanguage(index: number): void
 	{

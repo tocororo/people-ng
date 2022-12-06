@@ -1,62 +1,100 @@
-mat-toolbar.footer-height{
-    height: auto !important;
-}
-.mat-toolbar-row, .mat-toolbar-single-row {
-    white-space: normal !important;
-    height: auto !important;
-}
-.text-small{
-    font-size: small;
-}
-.text-initial{
-    font-size: initial;
-    line-height: initial;
-}
-.text-large{
-    font-size: x-large;
-}
-.aling-left{
-    text-align: left;
-    white-space: normal !important;
+.footer-wrapper {
+  width: 100%;
+  color: white;
+  font-weight: 500;
 }
 
-.a-grey{
-    color: rgb(230, 228, 228);
-    text-decoration: none;
-}
-.a-grey:hover{
-    text-decoration: underline;
-}
-
-.footer-logo
-{
-    padding-left: 40px;
+.footer {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  align-content: flex-start;
 }
 
-.footer-social
-{
-    padding-right: 120px;
-    margin-left: auto;
+// .footer-mobile {
+//   justify-content: space-evenly;
+// }
+
+.section {
+  padding: 30px 20px;
 }
 
-.footer-rigtside
-{
-    padding-right: 40px;
-    margin-left: auto;
+.about-section {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+.about-section p {
+  width: 360px;
 }
 
-.w-50
-{
-    width: 50%;
-    min-width: 15em;
-}
-.w-100
-{
-    width: 100%;
-    min-width: 15em;
+.grid-links {
+  display: grid;
+  grid-template-columns: repeat(2, auto);
+  grid-row-gap: 20px;
 }
 
-.pt-2em
-{
-    padding-top: 2em;
+.links-section a {
+  color: white;
+  text-underline-offset: 10px;
+}
+
+.links-section a:hover {
+  background: hsla(0, 0%, 100%, 0.1);
+}
+
+.follow-section {
+  display: flex;
+  flex-direction: column;
+}
+
+.pt-2em {
+  padding-top: 2em;
+}
+
+.divider {
+  background: hsla(0, 0%, 100%, 0.2);
+  width: 1px;
+}
+
+.iframe {
+  width: 380;
+  height: 180;
+  border: none;
+  overflow: hidden;
+  padding-left: 10px;
+}
+
+@media only screen and (max-width: 300px) {
+  .about-section p {
+    width: 250px;
+  }
+
+  .grid-links {
+    // grid-template-columns: repeat(2, auto);
+  }
+
+  .section {
+    padding: 30px 0;
+    width: 85%;
+  }
+
+  .iframe {
+    width: 240px;
+    padding-left: 0;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .about-section p {
+    width: 280px;
+  }
+
+  .grid-links {
+    // grid-template-columns: repeat(2, auto);
+    grid-gap: 20px
+  }
 }
