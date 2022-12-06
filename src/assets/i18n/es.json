@@ -63,6 +63,16 @@
     "PORTAL_PUB": "Portal de publicaciones científicas cubanas",
     "DESARROLLADO_CON": "Desarrollado con",
     "IMPLEMENTE_ESTO_ALEJANDRO": "Implemente esto: Alejandro",
+    "FOOTER_TEXT": "Sceiba tiene como objetivo establecer un sistema abierto centralizado que facilite el seguimiento y evaluación de las publicaciones científicas a nivel nacional",
+    "FOOTER_TEXT_INFORMACION": "Enlaces de Interés",
+    "FOOTER_TEXT_ENLACE": "Enlaces",
+    "SIGUENOS": "Síguenos",
+    "BUSQUEDA": "Descubre",
+    "EVALUACION_APP": "Evaluación",
+    "SMOODLE": "S-Moodle",
+
+    "FOOTER_TEXT_DEVELOP": "desarrollado con",
+    "FOOTER_TEXT_AND": "y",
 
     "TOCO_SEARCH_QUERY_INPUT": {
         "INPUT_SEARCH_LABEL": "Buscar",
@@ -82,7 +92,7 @@
 
     "GUARDAR": "Guardar",
     "GUARDAR_TOOLTIP": "Opciones para guardar una evaluación",
-    "EVAL_REV_GUARDADA": "¡La evaluación de la revista fue guardada correctamente!", 
+    "EVAL_REV_GUARDADA": "¡La evaluación de la revista fue guardada correctamente!",
     "OPERACION_EXITOSA": "Operación exitosa",
     "NOMBRE": "Nombre",
     "ESCR_NOMBRE_REVISTA": "Escriba el nombre de la revista",
