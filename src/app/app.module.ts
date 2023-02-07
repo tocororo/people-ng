@@ -25,8 +25,14 @@ import {MatChipsModule} from '@angular/material/chips';
 import {MatExpansionModule} from '@angular/material/expansion';
 import {MatListModule} from '@angular/material/list';
 
-import { CoreModule, Environment, SearchModule } from 'toco-lib';
-import { environment } from 'src/environments/environment';
+
+import {
+  AngularMaterialModule, AuthenticationModule, CoreModule, Environment, SearchModule,
+  SearchService, SourceServiceNoAuth, StaticsModule, TocoFormsModule
+} from 'toco-lib';
+import { OAuthModule, OAuthStorage } from 'angular-oauth2-oidc';
+
+import { allowedURLS, environment } from 'src/environments/environment';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -43,6 +49,11 @@ import { GeneralTabComponent } from './people-view/general-tab/general-tab.compo
 import { HeaderComponent } from './header/header.component';
 import { MenuItemComponent } from './header/menu-item/menu-item.component';
 import { MenuComponent } from './header/menu/menu.component';
+
+
+export function storageFactory(): OAuthStorage {
+  return sessionStorage
+}
 
 export function createTranslateLoader(http: HttpClient): TranslateHttpLoader
 {
@@ -104,13 +115,27 @@ export function createTranslateLoader(http: HttpClient): TranslateHttpLoader
     MatExpansionModule,
     MatListModule,
 
-		CoreModule,
-		SearchModule,
+    AngularMaterialModule,
+    CoreModule,
+    StaticsModule,
+    TocoFormsModule,
+    SearchModule,
+    AuthenticationModule,
 
-		AppRoutingModule
+		AppRoutingModule,
+
+    OAuthModule.forRoot({
+      resourceServer: {
+          allowedUrls: allowedURLS,
+          sendAccessToken: true
+      }
+    }),
 	],
 	providers: [
-		{ provide: Environment, useValue: environment }
+    SearchService,
+    SourceServiceNoAuth,
+    { provide: Environment, useValue: environment },
+    { provide: OAuthStorage, useFactory: storageFactory },
 	],
 	bootstrap: [AppComponent]
 })

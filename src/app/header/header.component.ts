@@ -1,7 +1,14 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
-import {convertLangFromNumberToString, Environment} from 'toco-lib';
-import {ME, menuHelp} from "./constants";
+import {
+  convertLangFromNumberToString,
+  Environment, OauthAuthenticationService, OauthInfo, Response, User
+} from 'toco-lib';
+import { ME, menuHelp } from "./constants";
+import { OAuthService, OAuthStorage } from 'angular-oauth2-oidc';
+import { Observable, Subscription } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'toco-header',
@@ -70,18 +77,40 @@ export class HeaderComponent implements OnInit {
   public _menuUser: MenuElement[]
   public _menuOptions: MenuElement[]
   public _menuApps: MenuElement[]
+  public staticMenuOptions: MenuElement[]
 
   public sceibaHost: string;
 
   public simpleMenu = false;
 
-  constructor(private _env: Environment, private _transServ: TranslateService) { }
+  public user: User = null;
+
+  public oauthInfo: OauthInfo;  
+
+  private authenticateSuscription: Subscription = null;
+
+  public constructor(
+    private _env: Environment,
+    private _transServ: TranslateService,
+    private router: Router,
+    private oauthService: OAuthService,
+    protected http: HttpClient,
+    private oauthStorage: OAuthStorage,
+    private authenticateService: OauthAuthenticationService
+  ) {
+    let env: any = this._env;
+    this.oauthInfo = env.oauthInfo;
+  }
 
   ngOnInit() {
     this.currentLang = 0;  /* The default language is Spanish; that is, the zero index. */
     this.showMenuLang == undefined ? this.showMenuLang = false : null;
 
     this.sceibaHost = this._env.sceibaHost;
+
+    this._transServ.setDefaultLang('es');
+    this._transServ.use('es');
+    this._transServ.addLangs(this.languageAbbrs);
 
     this._menuLoginOptions = this.menuLoginOptions || [
       {
@@ -102,42 +131,45 @@ export class HeaderComponent implements OnInit {
 
     this._menuUser = this.menuUser || [
       {
-        nameTranslate : "PERFIL_USUARIO",
+        nameTranslate : "ACCOUNT_SETTINGS",
         icon: "account_circle",
         href: `${ this.sceibaHost }account/settings/profile/`,
-        useRouterLink : false
+        useRouterLink : false,
+        target: "_blank"
+      },
+      {
+        nameTranslate : "PERFIL_USUARIO",
+        icon: "person_outline",
+        href: '/profile',
+        useRouterLink: true,
       },
       {
         nameTranslate : "CAMBIAR_CONTRASEÑA",
         icon: "vpn_key",
         href: `${ this.sceibaHost }account/settings/password/`,
-        useRouterLink : false
+        useRouterLink : false,
+        target: "_blank"
       },
       {
         nameTranslate : "SEGURIDAD",
         icon: "security",
         href: `${ this.sceibaHost }account/settings/security/`,
-        useRouterLink : false
+        useRouterLink : false,
+        target: "_blank"
       },
       {
         nameTranslate : "APLICACIONES",
         icon: "settings_applications",
         href: `${ this.sceibaHost }account/settings/applications/`,
-        useRouterLink : false
+        useRouterLink : false,
+        target: "_blank"
       },
       {
         nameTranslate : "SALIR",
         icon: "exit_to_app",
-        href: null,
-        // click: () => this.logoff
-        click: () => console.log("logoff===")
-      },
-      {
-        nameTranslate : "YO",
-        icon: "exit_to_app",
-        href: null,
-        // click: () => this.me
-        click: () => console.log("me===")
+        href: '/',
+        useRouterLink: true,
+        click: () => this.logoff()
       },
     ];
 
@@ -219,7 +251,7 @@ export class HeaderComponent implements OnInit {
       },
     ];
 
-    this._menuOptions = this.menuOptions || [
+    this.staticMenuOptions = this.menuOptions || [
       {
         nameTranslate: "APLICACIONES",
         icon: "apps",
@@ -231,29 +263,72 @@ export class HeaderComponent implements OnInit {
         icon: "help",
         childrenMenu: menuHelp
       },
-      {
-        nameTranslate: "USUARIO",
-        icon: "account_circle",
-        childrenMenu: this.menuLoginOptions,
-        hidden: this.isAuthenticated
-      },
-      {
-        nameTranslate: this.autehnticated_name,
-        icon: 'person_pin',
-        childrenMenu: this.menuUser,
-        hidden: this.isAuthenticated
-      },
-      {
-        nameTranslate: "AUTENTICARSE",
-        icon: "account_circle",
-        childrenMenu: this.menuLoginOptions,
-        hidden: this.isAuthenticated
-      },
+      // {
+      //   nameTranslate: "USUARIO",
+      //   icon: "account_circle",
+      //   childrenMenu: this.menuLoginOptions,
+      //   hidden: this.isAuthenticated
+      // },
+      // {
+      //   nameTranslate: "AUTENTICARSE",
+      //   icon: "account_circle",
+      //   childrenMenu: this.menuLoginOptions,
+      //   hidden: this.isAuthenticated
+      // },
     ];
 
-    this._transServ.setDefaultLang('es');
-    this._transServ.use('es');
-    this._transServ.addLangs(this.languageAbbrs);
+    this._menuOptions = this.staticMenuOptions
+
+
+
+    let request = JSON.parse(this.oauthStorage.getItem("user"));
+    if (request) {
+      this.user = request;
+      
+      this._menuOptions = [
+        ...this.staticMenuOptions, 
+        {
+          nameTranslate: this.user ? this.user.email.split('@')[0] : '',
+          icon: 'person_pin',
+          childrenMenu: this._menuUser,
+          hideLabel: true
+        }
+       ]
+    }
+
+    this.authenticateSuscription =
+      this.authenticateService.authenticationSubjectObservable.subscribe(
+        (request) => {
+          if (request != null) {
+            this.user = request;
+            // if (this.oauthStorage.getItem('access_token')) {
+            //   this.user = this.oauthStorage.getItem('email');
+            // }
+          } else {
+            this.logoff();
+          }
+      
+          this._menuOptions = [
+            ...this.staticMenuOptions, 
+            {
+              nameTranslate: this.user ? this.user.email.split('@')[0] : '',
+              icon: 'person_pin',
+              childrenMenu: this._menuUser,
+              hideLabel: true
+            }
+           ]
+        },
+        (error: any) => {
+          this.user = null;
+        },
+        () => {}
+      );
+  }
+
+  ngOnDestroy(): void {
+    if (this.authenticateSuscription) {
+      this.authenticateSuscription.unsubscribe();
+    }
   }
 
   /*******************************************************************
@@ -284,6 +359,57 @@ export class HeaderComponent implements OnInit {
     }
   }
 
+
+
+  public get isHome() {
+    return this.router.url == '/';
+  }
+
+  public login() {
+    console.log('hi');
+
+    this.oauthService.initImplicitFlow();
+  }
+
+  public logoff() {
+    this.oauthService.logOut();
+    this.oauthStorage.removeItem("user");
+    this.user = undefined;
+    this._menuOptions = this.staticMenuOptions;
+  }
+
+  public get name()
+  {
+    let user = JSON.parse(this.oauthStorage.getItem("user"));
+    if (!user) return null;
+    return user['email'];
+  }
+
+  getUserInfo(): Observable<Response<any>> {
+    // let token = this.oauthStorage.getItem('access_token');
+    // let headers = new HttpHeaders()
+    // headers.set('Authorization', 'Bearer ' + token);
+    // headers = headers.set('Content-Type', 'application/json');
+    // headers = headers.set('Access-Control-Allow-Origin', '*');
+    // const options = {
+    //   headers: headers
+    // };
+    return this.http.get<Response<any>>(this._env.sceibaApi + 'me');
+  }
+
+  public me()
+  {
+    this.getUserInfo().subscribe({
+      next: (response) => {
+        console.log(response)
+      },
+
+      error: (e) => { },
+
+      complete: () => { },
+    });
+  }
+
 }
 
 interface IMG {
@@ -297,10 +423,11 @@ export interface MenuElement {
   target?: string;
   useRouterLink?: boolean;
   icon?: string;
-  click?: () => void;
+  click?: any;
   img?: IMG;
   divider?: boolean;
   hidden?: boolean;
   isMenuApps?: boolean;
   childrenMenu?: MenuElement[];
+  hideLabel?: boolean;
 }

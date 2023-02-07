@@ -34,20 +34,20 @@
 
 
         <!-- Handle leaf node menu items -->
-        <span *ngIf="!child.childrenMenu || child.childrenMenu.length === 0">
+        <ng-container *ngIf="!child.childrenMenu || child.childrenMenu.length === 0">
           <ng-container *ngIf="child.useRouterLink; else useHrefMenu">
-            <button mat-menu-item [routerLink]="child.href">
+            <button mat-menu-item [routerLink]="child.href" (click)="child.click()">
               <mat-icon>{{child.icon}}</mat-icon>
               <span>{{ child.nameTranslate | translate }}</span>
             </button>
           </ng-container>
           <ng-template #useHrefMenu>
-            <a mat-menu-item [target]="child.target" [href]="child.href">
+            <a mat-menu-item [target]="child.target" [href]="child.href" (click)="child.click()">
               <mat-icon>{{child.icon}}</mat-icon>
               <span>{{child.nameTranslate | translate}}</span>
             </a>
           </ng-template>
-        </span>
+        </ng-container>
     </ng-container>
   </ng-template>
 </mat-menu>

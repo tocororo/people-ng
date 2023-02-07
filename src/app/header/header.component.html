@@ -47,6 +47,14 @@
       </button>
 
       <app-menu [menuItems]="_menuOptions" ></app-menu>
+
+      <toco-authentication *ngIf="!user"
+        [oauthInfo]="oauthInfo"
+        [isButtonLogin]="'true'"
+        [isButtonLoginIcon]="'true'"
+        [isButtonLoginText]="'AUTENTICARSE' | translate"
+      >
+      </toco-authentication>
     </div>
   </mat-toolbar-row>
 </mat-toolbar>
