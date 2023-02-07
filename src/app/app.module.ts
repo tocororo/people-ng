@@ -39,7 +39,6 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { PageNotFoundPeopleComponent } from './page-not-found-people/page-not-found-people.component';
 import { FooterComponent } from './footer/footer.component';
-import { ProfileComponent } from './people/profile/profile.component';
 import { SearchComponent } from './people/search/search.component';
 import { SearchListComponent } from './people/search-list/search-list.component';
 import { PeopleViewComponent } from './people-view/people-view.component';
@@ -70,7 +69,6 @@ export function createTranslateLoader(http: HttpClient): TranslateHttpLoader
 		HomeComponent,
 		PageNotFoundPeopleComponent,
 		FooterComponent,
-		ProfileComponent,
 		SearchComponent,
 		SearchListComponent,
 		PeopleViewComponent,

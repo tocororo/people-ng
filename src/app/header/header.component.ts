@@ -140,7 +140,7 @@ export class HeaderComponent implements OnInit {
       {
         nameTranslate : "PERFIL_USUARIO",
         icon: "person_outline",
-        href: '/profile',
+        href: 'a12s/profile',
         useRouterLink: true,
       },
       {

@@ -24,13 +24,11 @@ import { CoreModule, TocoFormsModule } from 'toco-lib';
 import { PeopleRoutingModule } from './people-routing.module';
 import { SearchComponent } from './search/search.component';
 import { PeopleComponent } from './people/people.component';
-import { ProfileComponent } from './profile/profile.component';
 
 @NgModule({
 	declarations: [
 		SearchComponent,
 		PeopleComponent,
-		ProfileComponent,
 	],
 	imports: [
 		CommonModule,
