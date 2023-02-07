@@ -68,6 +68,15 @@
   padding-left: 10px;
 }
 
+.partners {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  margin-top: 30px;
+}
+
 @media only screen and (max-width: 300px) {
   .about-section p {
     width: 250px;
@@ -95,6 +104,6 @@
 
   .grid-links {
     // grid-template-columns: repeat(2, auto);
-    grid-gap: 20px
+    grid-gap: 20px;
   }
 }
