@@ -85,7 +85,7 @@ export class HeaderComponent implements OnInit {
 
   public user: User = null;
 
-  public oauthInfo: OauthInfo;  
+  public oauthInfo: OauthInfo;
 
   private authenticateSuscription: Subscription = null;
 
@@ -251,7 +251,14 @@ export class HeaderComponent implements OnInit {
       },
     ];
 
-    this.staticMenuOptions = this.menuOptions || [
+    this._menuOptions = this.menuOptions || [
+
+      {
+        nameTranslate: "IMPORTAR",
+        icon: "publish",
+        useRouterLink: true,
+        hideLabel: true
+      },
       {
         nameTranslate: "APLICACIONES",
         icon: "apps",
@@ -284,9 +291,9 @@ export class HeaderComponent implements OnInit {
     let request = JSON.parse(this.oauthStorage.getItem("user"));
     if (request) {
       this.user = request;
-      
+
       this._menuOptions = [
-        ...this.staticMenuOptions, 
+        ...this.staticMenuOptions,
         {
           nameTranslate: this.user ? this.user.email.split('@')[0] : '',
           icon: 'person_pin',
@@ -307,9 +314,9 @@ export class HeaderComponent implements OnInit {
           } else {
             this.logoff();
           }
-      
+
           this._menuOptions = [
-            ...this.staticMenuOptions, 
+            ...this.staticMenuOptions,
             {
               nameTranslate: this.user ? this.user.email.split('@')[0] : '',
               icon: 'person_pin',

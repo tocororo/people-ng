@@ -7,17 +7,13 @@ import { PageNotFoundPeopleComponent } from './page-not-found-people/page-not-fo
 import { SearchComponent } from './search/search.component';
 import {PeopleViewComponent} from "./people-view/people-view.component";
 import {Layouts} from "./app.component";
+import { ImportPeopleComponent } from './import-people/import-people.component';
 import { PeopleActiveResolverService } from './people/people-resolver';
 import { PeopleLayoutComponent } from './layout/people-layout/people-layout.component';
 import { MainlayoutComponent } from './layout/mainlayout/mainlayout.component';
 
 const routes: Routes = [
 	// {
-  //       path: 'profile',
-  //       component: ProfileComponent,
-  //       data: { layout: Layouts.Main },
-  //   },
-
   {
     path: '',
     component: MainlayoutComponent,
@@ -32,6 +28,11 @@ const routes: Routes = [
         component: SearchComponent,
         // data: { layout: Layouts.Main },
       },
+      {
+        path: 'import',
+        component: ImportPeopleComponent,
+        data: { layout: Layouts.Main },
+      }
     ],
   },
   {
@@ -45,7 +46,7 @@ const routes: Routes = [
         path: 'view',
         component: PeopleViewComponent,
         // data: { layout: Layouts.People },
-          
+
       }]
   },
 	// {

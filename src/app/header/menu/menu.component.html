@@ -26,7 +26,7 @@
     <!-- Leaf node buttons here -->
     <ng-container *ngIf="(!item.childrenMenu || item.childrenMenu.length === 0 ) && !item.hidden">
       <ng-container *ngIf="item.useRouterLink; else useHrefMenu">
-        <button mat-button [routerLink]="item.href">
+        <button mat-button routerLink="/import">
           <mat-icon *ngIf="item.icon">{{item.icon}}</mat-icon>
           <span *ngIf="!item.hideLabel">{{ item.nameTranslate | translate }}</span>
         </button>

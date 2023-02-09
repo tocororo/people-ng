@@ -9,6 +9,7 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MarkdownModule } from 'ngx-markdown';
 
+
 import { MatButtonModule } from '@angular/material/button';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatMenuModule } from '@angular/material/menu';
@@ -24,6 +25,8 @@ import {MatTabsModule} from '@angular/material/tabs';
 import {MatChipsModule} from '@angular/material/chips';
 import {MatExpansionModule} from '@angular/material/expansion';
 import {MatListModule} from '@angular/material/list';
+import {MatTableModule} from '@angular/material/table';
+import { AngularFileUploaderModule } from "angular-file-uploader";
 
 
 import {
@@ -48,6 +51,9 @@ import { GeneralTabComponent } from './people-view/general-tab/general-tab.compo
 import { HeaderComponent } from './header/header.component';
 import { MenuItemComponent } from './header/menu-item/menu-item.component';
 import { MenuComponent } from './header/menu/menu.component';
+import { ImportPeopleComponent } from './import-people/import-people.component';
+import { MatFileUploadModule } from 'angular-material-fileupload';
+import { NgxDropzoneModule } from 'node_modules/ngx-dropzone';
 
 
 export function storageFactory(): OAuthStorage {
@@ -77,12 +83,21 @@ export function createTranslateLoader(http: HttpClient): TranslateHttpLoader
     GeneralTabComponent,
 		HeaderComponent,
 		MenuComponent,
-    MenuItemComponent
+    MenuItemComponent,
+    ImportPeopleComponent,
+
+
 	],
 	imports: [
 		BrowserModule,
 		BrowserAnimationsModule,
 		HttpClientModule,
+    MatFileUploadModule,
+    AngularFileUploaderModule,
+    MatTableModule,
+    MatPaginatorModule,
+    NgxDropzoneModule,
+    AngularFileUploaderModule,
 		TranslateModule.forRoot({
 		  loader: {
 			  provide: TranslateLoader,
