@@ -13,11 +13,13 @@
 
 
 
-<ng-container [ngSwitch]="layout">
-  <!-- Alternativerly use the main layout as the default switch case -->
+<!-- <ng-container [ngSwitch]="layout">
   <app-mainlayout *ngSwitchCase="Layouts.Main"></app-mainlayout>
   <app-people-layout *ngSwitchCase="Layouts.People"></app-people-layout>
-</ng-container>
+</ng-container> -->
+
+
+<router-outlet></router-outlet>
 
 <!--<div [ngStyle]="{'margin-top': '2em'}"> -->
 <app-footer

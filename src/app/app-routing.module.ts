@@ -7,6 +7,9 @@ import { PageNotFoundPeopleComponent } from './page-not-found-people/page-not-fo
 import { SearchComponent } from './search/search.component';
 import {PeopleViewComponent} from "./people-view/people-view.component";
 import {Layouts} from "./app.component";
+import { PeopleActiveResolverService } from './people/people-resolver';
+import { PeopleLayoutComponent } from './layout/people-layout/people-layout.component';
+import { MainlayoutComponent } from './layout/mainlayout/mainlayout.component';
 
 const routes: Routes = [
 	// {
@@ -14,21 +17,37 @@ const routes: Routes = [
   //       component: ProfileComponent,
   //       data: { layout: Layouts.Main },
   //   },
-	{
-		path: '',
-		component: HomeComponent,
-    data: { layout: Layouts.Main },
-	},
-	{
-    path: 'search',
-    component: SearchComponent,
-    data: { layout: Layouts.Main },
+
+  {
+    path: '',
+    component: MainlayoutComponent,
+    children: [
+      {
+        path: '',
+        component: HomeComponent,
+        // data: { layout: Layouts.Main },
+      },
+      {
+        path: 'search',
+        component: SearchComponent,
+        // data: { layout: Layouts.Main },
+      },
+    ],
+  },
+  {
+    path: 'person/:uuid',
+    component: PeopleLayoutComponent,
+    resolve: {
+      'person': PeopleActiveResolverService
     },
-	{
-		path: ':id/profile',
-		component: PeopleViewComponent,
-    data: { layout: Layouts.People },
-	},
+    children: [
+      {
+        path: 'view',
+        component: PeopleViewComponent,
+        // data: { layout: Layouts.People },
+          
+      }]
+  },
 	// {
 	// 	path: '**',
 	// 	component: PageNotFoundPeopleComponent
@@ -37,7 +56,7 @@ const routes: Routes = [
 
 @NgModule({
 	imports: [RouterModule.forRoot(routes)],
-	exports: [RouterModule]
+  exports: [RouterModule]
 })
 export class AppRoutingModule
 { }

@@ -51,9 +51,9 @@ export class PeopleService
 		return this._http.get<SearchResponse<Person>>(req);
 	}
 
-	public getOnePeople(slug: string): Observable<any>
+	public getPeopleById(uuid: string): Observable<any>
 	{
-    const req = this._env.sceibaApi + slug;
+    const req = this._env.sceibaApi + "pid/persons/" + uuid;
 		return this._http.get<SearchResponse<Person>>(req);
 	}
 }
