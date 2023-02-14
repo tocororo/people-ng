@@ -4,14 +4,19 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { HomeComponent } from './home/home.component';
 import { PageNotFoundPeopleComponent } from './page-not-found-people/page-not-found-people.component';
-import { SearchComponent } from './people/search/search.component';
+import { SearchComponent } from './search/search.component';
 import {PeopleViewComponent} from "./people-view/people-view.component";
 import {Layouts} from "./app.component";
 
 const routes: Routes = [
+	// {
+  //       path: 'profile',
+  //       component: ProfileComponent,
+  //       data: { layout: Layouts.Main },
+  //   },
 	{
-		path: 'person',
-		loadChildren: () => import('./people/people.module').then(mod => mod.PeopleModule),
+		path: '',
+		component: HomeComponent,
     data: { layout: Layouts.Main },
 	},
 	{
@@ -19,11 +24,6 @@ const routes: Routes = [
     component: SearchComponent,
     data: { layout: Layouts.Main },
     },
-	{
-		path: '',
-		component: HomeComponent,
-    data: { layout: Layouts.Main },
-	},
 	{
 		path: ':id/profile',
 		component: PeopleViewComponent,
