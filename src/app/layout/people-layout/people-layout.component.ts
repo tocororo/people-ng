@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {Person} from '../../people/person.entity';
+import { ActivatedRoute } from '@angular/router';
+import { PeopleService } from 'src/app/people/people.service';
 
 @Component({
   selector: 'app-people-layout',
@@ -8,19 +10,31 @@ import {Person} from '../../people/person.entity';
 })
 export class PeopleLayoutComponent implements OnInit {
 
-  public people: any;
+  public person: Person;
 
-  constructor() { }
+  constructor(
+    private _activatedRoute: ActivatedRoute,
+    private service: PeopleService,) { }
 
   ngOnInit() {
-    this.people = {
-      name: 'Alejandro',
-      lastName: 'Cabrera Mena',
-      country: 'Cuba',
-      email: 'alejandro97.acm@gmail.com',
-      active: true,
-      publicProfile: false
-    };
+    // console.log(this.route.root);
+    
+		// let uuid = this.route.snapshot.paramMap.get('uuid');
+    // this.service.getPeopleById(uuid).subscribe(
+    //   (data) => {
+    //     console.log(data);
+        
+    //       this.person = data.person.metadata;
+    //   }
+    // );
+
+    this._activatedRoute.data.subscribe(
+      (data) => {
+        console.log(data);
+        
+          this.person = data.person.metadata;
+      }
+    );
   }
 
 }

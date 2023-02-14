@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import {Person} from '../../people/person.entity';
 
 @Component({
@@ -8,10 +8,11 @@ import {Person} from '../../people/person.entity';
 })
 export class GeneralTabComponent implements OnInit {
 
-  public people: any;
-  public text = ['name', 'lastName', 'gender', 'country', 'email', 'url'];
-  public chips = ['researchInterests', 'keyWords', 'aliases'];
-  public accordion = ['affiliations', 'subaffiliations', 'boardMember'];
+  @Input() public person: Person;
+  public people
+  public text = ['name', 'gender'];
+  public chips = ['aliases'];
+  public accordion = ['affiliations', "email_addresses"];
 
   constructor() { }
 
