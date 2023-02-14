@@ -56,4 +56,8 @@ export class PeopleService
     const req = this._env.sceibaApi + "pid/persons/" + uuid;
 		return this._http.get<SearchResponse<Person>>(req);
 	}
+
+  postPeople(people: any) {
+    return this._http.post('', people);
+  }
 }

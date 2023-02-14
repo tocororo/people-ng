@@ -3,6 +3,7 @@ import { Person } from "../people/person.entity";
 import { MatPaginator, MatSnackBar, MatTableDataSource, PageEvent } from "@angular/material";
 import csvToJson from "convert-csv-to-json";
 import { MessageHandler, StatusCode } from "toco-lib";
+import { PeopleService } from '../people/people.service';
 
 @Component({
   selector: "app-import-people",
@@ -22,7 +23,8 @@ export class ImportPeopleComponent {
   people: any[] = [];
   files: File[] = [];
   dataSource = new MatTableDataSource<any>([]);
-  headers = new Headers({ "Content-Type": "application/csv" });
+  m = new MessageHandler(this._snackBar);
+  formData = new FormData();
   displayedColumns: string[] = [
     "nombre",
     "apellido1",
@@ -33,23 +35,28 @@ export class ImportPeopleComponent {
     "externals_email",
   ];
 
-  constructor(private _snackBar: MatSnackBar) {}
+  constructor(private _snackBar: MatSnackBar,
+              private peopleService: PeopleService) {}
 
   onSelect(event: any) {
     console.log(event);
-    this.files.push(...event.addedFiles);
+    if (this.files.length > 0) {
+      this.m.showMessage(StatusCode.OK, "Solo se puede seleccionar un archivo");
+    }else {
+      this.files.push(...event.addedFiles);
+    }
+
   }
 
   showData() {
     if (this.files.length === 0) {
-      const m = new MessageHandler(this._snackBar);
-      m.showMessage(StatusCode.OK, "No hay archivo para mostrar");
+      this.m.showMessage(StatusCode.OK, "No hay archivo para mostrar");
     } else {
       this.readFile(this.files[0]).then((fileContents: string) => {
-        let jsonFile = this.csvToJson(fileContents);
+        const jsonFile = this.csvToJson(fileContents);
         const rta = JSON.parse(jsonFile);
         this.people = rta;
-        let eliminado = this.people.shift();
+        const eliminado = this.people.shift();
         console.log("people", this.people);
         this.dataSource.data = this.people;
       });
@@ -102,10 +109,15 @@ export class ImportPeopleComponent {
 
   saveData() {
     if (this.files.length === 0) {
-      const m = new MessageHandler(this._snackBar);
-      m.showMessage(StatusCode.OK, "No hay archivo para guardar");
+      this.m.showMessage(StatusCode.OK, "No hay archivo para guardar");
     } else {
-      console.log("Salvando");
+      this.formData.append("peopleFile", this.files[0]);
+      console.log(this.formData);
+      this.peopleService.postPeople(this.formData)
+        .subscribe(response => {
+          console.log(response);
+          this.formData.delete("peopleFile")
+        })
     }
   }
 }
