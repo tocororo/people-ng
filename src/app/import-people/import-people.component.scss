@@ -5,7 +5,7 @@
   margin: 0 auto;
 }
 
-.mat-elevation-z8{
+.mat-elevation-z8 {
   width: 95%;
   padding: 2rem;
   text-align: left;
@@ -17,10 +17,10 @@ table {
 th.mat-header-cell {
   text-align: center;
 }
-td.mat-cell{
+td.mat-cell {
   padding: 10px;
 }
-td.mat-cell{
+td.mat-cell {
   text-align: center;
 }
 .button-container {
@@ -29,6 +29,15 @@ td.mat-cell{
   margin-top: 10px;
   margin-bottom: 10px;
 }
-.mat-flat-button.mat-primary, .mat-raised-button.mat-primary, .mat-fab.mat-primary, .mat-mini-fab.mat-primary {
+.mat-flat-button.mat-primary,
+.mat-raised-button.mat-primary,
+.mat-fab.mat-primary,
+.mat-mini-fab.mat-primary {
   margin-right: 10px;
+}
+
+.import-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }

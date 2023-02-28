@@ -31,7 +31,7 @@ import { AngularFileUploaderModule } from "angular-file-uploader";
 
 import {
   AngularMaterialModule, AuthenticationModule, CoreModule, Environment, SearchModule,
-  SearchService, SourceServiceNoAuth, StaticsModule, TocoFormsModule
+  SearchService, SourceServiceNoAuth, StaticsModule, TocoFormsModule, OrganizationServiceNoAuth
 } from 'toco-lib';
 import { OAuthModule, OAuthStorage } from 'angular-oauth2-oidc';
 
@@ -54,6 +54,7 @@ import { MenuComponent } from './header/menu/menu.component';
 import { ImportPeopleComponent } from './import-people/import-people.component';
 import { MatFileUploadModule } from 'angular-material-fileupload';
 import { NgxDropzoneModule } from 'node_modules/ngx-dropzone';
+import { SelectOrgComponent } from './select-org/select-org.component';
 
 
 export function storageFactory(): OAuthStorage {
@@ -85,7 +86,7 @@ export function createTranslateLoader(http: HttpClient): TranslateHttpLoader
 		MenuComponent,
     MenuItemComponent,
     ImportPeopleComponent,
-
+    SelectOrgComponent,
 
 	],
 	imports: [
@@ -127,6 +128,7 @@ export function createTranslateLoader(http: HttpClient): TranslateHttpLoader
     MatChipsModule,
     MatExpansionModule,
     MatListModule,
+    TocoFormsModule,
 
     AngularMaterialModule,
     CoreModule,

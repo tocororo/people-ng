@@ -1,7 +1,6 @@
 {
   "name": "people-ng",
   "version": "0.0.0",
-
   "browser": {
     "fs": false,
     "path": false,

@@ -1,8 +1,19 @@
+
+
+<app-select-org
+fxLayout="row wrap"
+fxLayout.xs="column wrap"
+fxLayoutAlign="start center"
+fxLayoutAlign.xs="center center"
+fxLayoutGap="1em"
+(paramsChange)="filtersChange($event)"
+>
+</app-select-org>
+
 <div class="container">
   <ngx-dropzone (change)="onSelect($event)" accept=".csv">
     <ngx-dropzone-label>
-      Import people
-      <img src="../../assets/images/import.png" width="100px" />
+      <mat-icon style="font-size: 100px;">person_add</mat-icon>
     </ngx-dropzone-label>
     <ngx-dropzone-preview
       *ngFor="let f of files"
@@ -89,19 +100,14 @@
   ></mat-paginator>
 </div>
 
+
+
 <div class="button-container">
-  <button
-    mat-raised-button
-    (click)="showData()"
-    color="primary"
-  >
+  <button mat-raised-button (click)="showData()" color="primary">
     Mostrar
   </button>
-  <button
-    mat-raised-button
-    (click)="saveData()"
-    color="primary"
-  >
+  <button mat-raised-button (click)="saveData()" color="primary">
     Guardar
   </button>
 </div>
+

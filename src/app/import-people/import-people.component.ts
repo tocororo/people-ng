@@ -4,6 +4,7 @@ import { MatPaginator, MatSnackBar, MatTableDataSource, PageEvent } from "@angul
 import csvToJson from "convert-csv-to-json";
 import { MessageHandler, StatusCode } from "toco-lib";
 import { PeopleService } from '../people/people.service';
+import { ActivatedRoute, NavigationExtras, ParamMap, Params, Router, convertToParamMap } from "@angular/router";
 
 @Component({
   selector: "app-import-people",
@@ -35,8 +36,15 @@ export class ImportPeopleComponent {
     "externals_email",
   ];
 
-  constructor(private _snackBar: MatSnackBar,
-              private peopleService: PeopleService) {}
+  pageSize = 5;
+  pageIndex = 0;
+  filtersParams: ParamMap;
+
+  constructor(
+    private _snackBar: MatSnackBar,
+    private peopleService: PeopleService,
+    private activatedRoute: ActivatedRoute,
+    private router: Router) { }
 
   onSelect(event: any) {
     console.log(event);
@@ -119,5 +127,11 @@ export class ImportPeopleComponent {
           this.formData.delete("peopleFile")
         })
     }
+  }
+
+
+  filtersChange(values: Params) {
+    console.log(values.organizations);
+
   }
 }
