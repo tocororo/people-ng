@@ -140,7 +140,7 @@ export class HeaderComponent implements OnInit {
       {
         nameTranslate : "PERFIL_USUARIO",
         icon: "person_outline",
-        href: 'a12s/profile',
+        href: `/person/${this.user && this.user.id}`,
         useRouterLink: true,
       },
       {
@@ -251,7 +251,7 @@ export class HeaderComponent implements OnInit {
       },
     ];
 
-    this._menuOptions = this.menuOptions || [
+    this.staticMenuOptions = this.menuOptions || [
 
       {
         nameTranslate: "IMPORTAR",
@@ -289,9 +289,9 @@ export class HeaderComponent implements OnInit {
 
 
     let request = JSON.parse(this.oauthStorage.getItem("user"));
-    if (request) {
-      this.user = request;
 
+    if (request) {
+      this.user = request.data.userprofile.user;
       this._menuOptions = [
         ...this.staticMenuOptions,
         {
@@ -306,14 +306,9 @@ export class HeaderComponent implements OnInit {
     this.authenticateSuscription =
       this.authenticateService.authenticationSubjectObservable.subscribe(
         (request) => {
-          if (request != null) {
-            this.user = request;
-            // if (this.oauthStorage.getItem('access_token')) {
-            //   this.user = this.oauthStorage.getItem('email');
-            // }
-          } else {
-            this.logoff();
-          }
+          if (request) {
+            this.user = request.data.userprofile.user;
+
 
           this._menuOptions = [
             ...this.staticMenuOptions,
@@ -324,6 +319,9 @@ export class HeaderComponent implements OnInit {
               hideLabel: true
             }
            ]
+          } else {
+            this.logoff();
+          }
         },
         (error: any) => {
           this.user = null;
