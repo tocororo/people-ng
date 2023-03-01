@@ -1,5 +1,5 @@
 
-
+<!--
 <app-select-org
 fxLayout="row wrap"
 fxLayout.xs="column wrap"
@@ -8,7 +8,9 @@ fxLayoutAlign.xs="center center"
 fxLayoutGap="1em"
 (paramsChange)="filtersChange($event)"
 >
-</app-select-org>
+</app-select-org> -->
+
+<button mat-raised-button (click)="openDialog()">Pick one</button>
 
 <div class="container">
   <ngx-dropzone (change)="onSelect($event)" accept=".csv">

@@ -1,10 +1,11 @@
 import { Component, OnInit, ViewChild, AfterViewInit } from "@angular/core";
 import { Person } from "../people/person.entity";
-import { MatPaginator, MatSnackBar, MatTableDataSource, PageEvent } from "@angular/material";
+import { MatDialog, MatPaginator, MatSnackBar, MatTableDataSource, PageEvent } from "@angular/material";
 import csvToJson from "convert-csv-to-json";
 import { MessageHandler, StatusCode } from "toco-lib";
 import { PeopleService } from '../people/people.service';
 import { ActivatedRoute, NavigationExtras, ParamMap, Params, Router, convertToParamMap } from "@angular/router";
+import { OrgDialogComponent } from "./org-dialog/org-dialog.component";
 
 @Component({
   selector: "app-import-people",
@@ -40,11 +41,14 @@ export class ImportPeopleComponent {
   pageIndex = 0;
   filtersParams: ParamMap;
 
+  org: any;
+
   constructor(
     private _snackBar: MatSnackBar,
     private peopleService: PeopleService,
     private activatedRoute: ActivatedRoute,
-    private router: Router) { }
+    private router: Router,
+    public dialog: MatDialog) { }
 
   onSelect(event: any) {
     console.log(event);
@@ -133,5 +137,17 @@ export class ImportPeopleComponent {
   filtersChange(values: Params) {
     console.log(values.organizations);
 
+  }
+
+  openDialog(): void {
+    const dialogRef = this.dialog.open(OrgDialogComponent, {
+      width: '95%',
+      data: {}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      this.org = result;
+    });
   }
 }
