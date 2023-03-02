@@ -1,85 +1,90 @@
-
-.menu-icon-button{
-    border: inherit;
-    background-color: inherit;
+.menu-icon-button {
+  border: inherit;
+  background-color: inherit;
 }
 
-.color-white{
-    color: white !important;
-    text-emphasis: white;
-    text-decoration: none !important;
+.color-white {
+  color: white !important;
+  text-emphasis: white;
+  text-decoration: none !important;
 }
 
 .mat-toolbar-single-row {
-    height: auto !important;
-    min-height: 64px;
+  height: auto !important;
+  min-height: 64px;
 }
-.w-90{
-    width: 90%;
+.w-90 {
+  width: 90%;
 }
-.apps{
-    margin: .5em;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-decoration: none;
-    color: black;
-    font-size: smaller;
-    img{
-        width: 55px; 
-        height: 55px
-    }
+.apps {
+  margin: 0.5em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-decoration: none;
+  color: black;
+  font-size: smaller;
+  img {
+    width: 55px;
+    height: 55px;
+  }
 }
-.MES{
-    width: 190px !important;
+.MES {
+  width: 190px !important;
 }
-.menu-full{
+.menu-full {
   width: 100%;
   display: flex;
   flex-direction: row;
   justify-content: space-around;
   flex-wrap: wrap;
 }
-.font-bold{
+.font-bold {
   font-weight: bold;
 }
 .triangle {
-    position: relative;
-    width: 0;
-    height: 0;
-    border-top: 0px solid transparent;
-    // el valor siguiente se define en el `style` global para utilizar los colores como variable
-    border-left: 80px solid #dd2c00;
-    border-bottom: 80px solid transparent;
-    margin-left: -16px;
+  position: relative;
+  width: 0;
+  height: 0;
+  border-top: 0px solid transparent;
+  // el valor siguiente se define en el `style` global para utilizar los colores como variable
+  border-left: 80px solid #dd2c00;
+  border-bottom: 80px solid transparent;
+  margin-left: -16px;
 }
-.triangle span{
-    position: absolute;
-    right: 23px;
-    top: 11px;
-    color: white;
-    -ms-transform: rotate(-45deg);
-    -webkit-transform: rotate(-45deg);
-    transform: rotate(-45deg);
+.triangle span {
+  position: absolute;
+  right: 23px;
+  top: 11px;
+  color: white;
+  -ms-transform: rotate(-45deg);
+  -webkit-transform: rotate(-45deg);
+  transform: rotate(-45deg);
 }
 
 .show-menu {
-    display: inline-block;
+  display: inline-block;
 }
 
 .hide-menu {
-    display: none;
+  display: none;
 }
 
 .show-menu-elements {
-    display: flex;
+  display: flex;
 }
 
 .center-elements {
-    width: auto;
+  width: auto;
 }
+
+a {
+  color: black !important;
+  text-decoration: none !important;
+}
+
 @media screen and (max-width: 490px) {
-    .center-elements {
-        width: 100%;
-    }
+  .center-elements {
+    width: 100%;
+  }
 }
