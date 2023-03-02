@@ -257,7 +257,8 @@ export class HeaderComponent implements OnInit {
         nameTranslate: "IMPORTAR",
         icon: "publish",
         useRouterLink: true,
-        hideLabel: true
+        hideLabel: true,
+        href: '/import',
       },
       {
         nameTranslate: "APLICACIONES",
