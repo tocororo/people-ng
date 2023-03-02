@@ -2,7 +2,7 @@ import { BrowserModule } from "@angular/platform-browser";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { NgModule } from "@angular/core";
 import { HttpClientModule, HttpClient } from "@angular/common/http";
-import { ReactiveFormsModule } from "@angular/forms";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { TranslateLoader, TranslateModule } from "@ngx-translate/core";
 import { TranslateHttpLoader } from "@ngx-translate/http-loader";
 import { FlexLayoutModule } from "@angular/flex-layout";
@@ -24,7 +24,7 @@ import { MatChipsModule } from "@angular/material/chips";
 import { MatExpansionModule } from "@angular/material/expansion";
 import { MatListModule } from "@angular/material/list";
 import { MatTableModule } from "@angular/material/table";
-import { AngularFileUploaderModule } from "angular-file-uploader";
+import {MatCheckboxModule} from '@angular/material/checkbox';
 
 import {
   AngularMaterialModule,
@@ -57,7 +57,6 @@ import { HeaderComponent } from "./header/header.component";
 import { MenuItemComponent } from "./header/menu-item/menu-item.component";
 import { MenuComponent } from "./header/menu/menu.component";
 import { ImportPeopleComponent } from "./import-people/import-people.component";
-import { MatFileUploadModule } from "angular-material-fileupload";
 import { NgxDropzoneModule } from "node_modules/ngx-dropzone";
 import { SelectOrgComponent } from "./select-org/select-org.component";
 import { OrgDialogComponent } from "./import-people/org-dialog/org-dialog.component";
@@ -96,12 +95,9 @@ export function createTranslateLoader(http: HttpClient): TranslateHttpLoader {
     BrowserModule,
     BrowserAnimationsModule,
     HttpClientModule,
-    MatFileUploadModule,
-    AngularFileUploaderModule,
     MatTableModule,
     MatPaginatorModule,
     NgxDropzoneModule,
-    AngularFileUploaderModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
@@ -133,6 +129,8 @@ export function createTranslateLoader(http: HttpClient): TranslateHttpLoader {
     MatListModule,
     TocoFormsModule,
     MatRadioModule,
+    MatCheckboxModule,
+    FormsModule,
 
     AngularMaterialModule,
     CoreModule,

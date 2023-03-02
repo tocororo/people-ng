@@ -1,10 +1,21 @@
 import { Component, OnInit, ViewChild, AfterViewInit } from "@angular/core";
-import { Person } from "../people/person.entity";
-import { MatDialog, MatPaginator, MatSnackBar, MatTableDataSource, PageEvent } from "@angular/material";
-import csvToJson from "convert-csv-to-json";
+import {
+  MatDialog,
+  MatPaginator,
+  MatSnackBar,
+  MatTableDataSource,
+  PageEvent,
+} from "@angular/material";
 import { MessageHandler, StatusCode } from "toco-lib";
-import { PeopleService } from '../people/people.service';
-import { ActivatedRoute, NavigationExtras, ParamMap, Params, Router, convertToParamMap } from "@angular/router";
+import { PeopleService } from "../people/people.service";
+import {
+  ActivatedRoute,
+  NavigationExtras,
+  ParamMap,
+  Params,
+  Router,
+  convertToParamMap,
+} from "@angular/router";
 import { OrgDialogComponent } from "./org-dialog/org-dialog.component";
 
 @Component({
@@ -22,19 +33,18 @@ export class ImportPeopleComponent {
     this.dataSource.paginator = this.paginator;
   }
 
-  people: any[] = [];
+  people: any;
   files: File[] = [];
   dataSource = new MatTableDataSource<any>([]);
   m = new MessageHandler(this._snackBar);
-  formData = new FormData();
   displayedColumns: string[] = [
-    "nombre",
-    "apellido1",
-    "apellido2",
-    "pais",
-    "sexo",
+    "name",
+    "lastName",
+    "aliases",
+    "gender",
+    "country",
     "institutional_email",
-    "externals_email",
+    "emails",
   ];
 
   pageSize = 5;
@@ -46,18 +56,41 @@ export class ImportPeopleComponent {
   constructor(
     private _snackBar: MatSnackBar,
     private peopleService: PeopleService,
-    private activatedRoute: ActivatedRoute,
-    private router: Router,
-    public dialog: MatDialog) { }
+    public dialog: MatDialog
+  ) {}
 
   onSelect(event: any) {
-    console.log(event);
-    if (this.files.length > 0) {
-      this.m.showMessage(StatusCode.OK, "Solo se puede seleccionar un archivo");
-    }else {
-      this.files.push(...event.addedFiles);
-    }
+    const files = [...event.addedFiles];
 
+    this.readFile(files[0]).then((fileContents: string) => {
+      let person = null;
+      if (files[0].type !== "application/json") {
+        const jsonFile = this.csvToJson(fileContents);
+        person = JSON.parse(jsonFile)[0];
+      } else {
+        person = JSON.parse(fileContents).result[0];
+      }
+
+      const areValidKeys = this.displayedColumns.every((i) =>
+        person.hasOwnProperty(i)
+      );
+      if (areValidKeys) {
+        this.files = files;
+        this.openDialog();
+        return;
+      }
+
+      this.m.showMessage(
+        StatusCode.OK,
+        "El archivo a importar no cumple con los campos requeridos"
+      );
+
+      // if (this.files.length > 0) {
+      //   this.m.showMessage(StatusCode.OK, "Solo se puede seleccionar un archivo");
+      // }else {
+      //   this.files.push(...);
+      //   this.openDialog()
+    });
   }
 
   showData() {
@@ -65,12 +98,15 @@ export class ImportPeopleComponent {
       this.m.showMessage(StatusCode.OK, "No hay archivo para mostrar");
     } else {
       this.readFile(this.files[0]).then((fileContents: string) => {
-        const jsonFile = this.csvToJson(fileContents);
-        const rta = JSON.parse(jsonFile);
-        this.people = rta;
-        const eliminado = this.people.shift();
-        console.log("people", this.people);
-        this.dataSource.data = this.people;
+        if (this.files[0].type !== "application/json") {
+          const jsonFile = this.csvToJson(fileContents);
+          this.people = JSON.parse(jsonFile);
+        } else {
+          this.people = JSON.parse(fileContents).result;
+        }
+        // const eliminado = this.people.shift();
+        this.dataSource.data =
+          this.people.length > 800 ? this.people.slice(0, 800) : this.people;
       });
     }
   }
@@ -84,12 +120,12 @@ export class ImportPeopleComponent {
       };
 
       reader.onerror = (e) => {
-        console.error(`FileReader failed on file ${file.name}.`);
+        // console.error(`FileReader failed on file ${file.name}.`);
         return reject(null);
       };
 
       if (!file) {
-        console.error("No file to read.");
+        // console.error("No file to read.");
         return reject(null);
       }
 
@@ -123,30 +159,25 @@ export class ImportPeopleComponent {
     if (this.files.length === 0) {
       this.m.showMessage(StatusCode.OK, "No hay archivo para guardar");
     } else {
-      this.formData.append("peopleFile", this.files[0]);
-      console.log(this.formData);
-      this.peopleService.postPeople(this.formData)
-        .subscribe(response => {
-          console.log(response);
-          this.formData.delete("peopleFile")
-        })
+      this.peopleService.saveImport(this.org.id, this.files[0]).subscribe((response) => {
+        console.log(response);
+        // this.formData.delete("peopleFile");
+      });
     }
   }
 
-
   filtersChange(values: Params) {
     console.log(values.organizations);
-
   }
 
   openDialog(): void {
     const dialogRef = this.dialog.open(OrgDialogComponent, {
-      width: '95%',
-      data: {}
+      width: "95%",
+      data: {},
     });
 
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
+    dialogRef.afterClosed().subscribe((result) => {
+      console.log("The dialog was closed");
       this.org = result;
     });
   }

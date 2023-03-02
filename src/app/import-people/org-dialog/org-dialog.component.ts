@@ -1,5 +1,11 @@
 import { HttpParams } from "@angular/common/http";
-import { Component, HostListener, OnInit, ViewChild } from "@angular/core";
+import {
+  Component,
+  HostListener,
+  Input,
+  OnInit,
+  ViewChild,
+} from "@angular/core";
 import { MatDrawer, MatDialogRef, PageEvent } from "@angular/material";
 import {
   ActivatedRoute,
@@ -67,14 +73,17 @@ export class OrgDialogComponent {
   navigationExtras: NavigationExtras;
 
   loading: boolean = true;
+  selectedOrgs: any;
+
+  @Input() multipleSelection: boolean = false;
+  @Input() header: string = 'Seleccione la organización a que pertenecen las personas a importar.';
 
   @ViewChild(MatDrawer, { static: false }) drawer: MatDrawer;
 
   constructor(
     private _cuorService: OrgService,
     public dialogRef: MatDialogRef<OrgDialogComponent>
-  ) // @Inject(MAT_DIALOG_DATA) public data: any
-  {}
+  ) {}
 
   public ngOnInit(): void {
     this.query = "";
@@ -112,7 +121,10 @@ export class OrgDialogComponent {
       (response: SearchResponse<Organization>) => {
         // this.pageEvent.length = response.hits.total;
         this.sr = response;
-        console.log("🚀 ~ file: org-dialog.component.ts:115 ~ OrgDialogComponent ~ fetchSearchRequest ~ this.sr", this.sr)
+        console.log(
+          "🚀 ~ file: org-dialog.component.ts:115 ~ OrgDialogComponent ~ fetchSearchRequest ~ this.sr",
+          this.sr
+        );
         delete this.sr.aggregations["country"];
         this.aggr_keys = [
           //{value: this.sr.aggregations.country, key: 'País'},
@@ -156,5 +168,25 @@ export class OrgDialogComponent {
 
   onNoClick(): void {
     this.dialogRef.close();
+  }
+
+  checkMultiple(e, org) {
+    if (!this.selectedOrgs) {
+      this.selectedOrgs = [];
+    }
+
+    if (e.checked === true) {
+      this.selectedOrgs.push(org);
+    }
+
+    if (e.checked === false) {
+      this.selectedOrgs = this.selectedOrgs.filter((ele) => ele.id !== org.id);
+    }
+
+    console.log(this.selectedOrgs);
+  }
+
+  checkSingle(e, org) {
+    this.selectedOrgs = org;
   }
 }
