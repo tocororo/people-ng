@@ -29,15 +29,16 @@ import { Person } from "./person.entity";
 export class PeopleService {
   private readonly _prefix = "people";
 
-  _http: HttpClient;
+  // _http: HttpClient;
 
   public constructor(
     private _env: Environment,
     private handler: HttpBackend,
-    private oAuthStorage: OAuthStorage
+    private oAuthStorage: OAuthStorage,
+    private _http: HttpClient
   ) {
     {
-      this._http = new HttpClient(this.handler);
+      // this._http = new HttpClient(this.handler);
     }
   }
 
@@ -67,19 +68,19 @@ export class PeopleService {
     return this._http.get<SearchResponse<Person>>(req);
   }
 
-  saveImport(org, file) {
+  saveImport(org, file: File) {
     let token = this.oAuthStorage.getItem("access_token");
     const formData = new FormData();
-    formData.append("file", file, file);
-    console.log(formData.get("file"));
+    formData.append("file", file);
+    console.log(file);
     const req = this._env.sceibaApi + "persons/import/" + org;
-    const headers = new HttpHeaders({
-      enctype: "multipart/form-data",
-      "Content-Type": "multipart/form-data",
-      "Accept": "*/*",
-      // Authorization: "Bearer " + token,
-      "Access-Control-Allow-Origin": "*",
-    });
-    return this._http.post(req, file, { headers: headers });
+    // const headers = new HttpHeaders({
+    //   enctype: "multipart/form-data",
+    //   "Content-Type": "multipart/form-data",
+    //   "Accept": "*/*",
+    //   // Authorization: "Bearer " + token,
+    //   "Access-Control-Allow-Origin": "*",
+    // });
+    return this._http.post(req, formData);
   }
 }

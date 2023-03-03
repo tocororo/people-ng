@@ -8,14 +8,7 @@ import {
 } from "@angular/material";
 import { MessageHandler, StatusCode } from "toco-lib";
 import { PeopleService } from "../people/people.service";
-import {
-  ActivatedRoute,
-  NavigationExtras,
-  ParamMap,
-  Params,
-  Router,
-  convertToParamMap,
-} from "@angular/router";
+import { ParamMap, Params, Router } from "@angular/router";
 import { OrgDialogComponent } from "./org-dialog/org-dialog.component";
 
 @Component({
@@ -24,34 +17,37 @@ import { OrgDialogComponent } from "./org-dialog/org-dialog.component";
   styleUrls: ["./import-people.component.scss"],
 })
 export class ImportPeopleComponent {
-  private paginator: MatPaginator;
-
-  @ViewChild(MatPaginator, { static: false }) set matPaginator(
-    mp: MatPaginator
-  ) {
-    this.paginator = mp;
-    this.dataSource.paginator = this.paginator;
-  }
 
   people: any;
-  files: File[] = [];
+  file: File[] = [];
   dataSource = new MatTableDataSource<any>([]);
   m = new MessageHandler(this._snackBar);
-  displayedColumns: string[] = [
+  org: any;
+
+  isJsonFile: boolean = false
+
+  requiredCSVkyes = [
+    "apellido1",
+    "apellido2",
+    "externals_email",
+    "idExpediente",
+    "institutional_email",
+    "noCi",
+    "nombre",
+    "pais",
+    "sexo",
+  ];
+
+  requiredJSONKyes = [
+    "_id",
+    "identifiers",
     "name",
     "lastName",
-    "aliases",
     "gender",
     "country",
     "institutional_email",
     "emails",
   ];
-
-  pageSize = 5;
-  pageIndex = 0;
-  filtersParams: ParamMap;
-
-  org: any;
 
   constructor(
     private _snackBar: MatSnackBar,
@@ -60,53 +56,67 @@ export class ImportPeopleComponent {
   ) {}
 
   onSelect(event: any) {
-    const files = [...event.addedFiles];
-
-    this.readFile(files[0]).then((fileContents: string) => {
-      let person = null;
-      if (files[0].type !== "application/json") {
+    const file = [...event.addedFiles];
+    this.readFile(file[0]).then((fileContents: string) => {
+      let persons = null;
+      if (file[0].type !== "application/json") {
         const jsonFile = this.csvToJson(fileContents);
-        person = JSON.parse(jsonFile)[0];
-      } else {
-        person = JSON.parse(fileContents).result[0];
-      }
+        persons = JSON.parse(jsonFile);
+        const areValidCSVKeys =
+          Array.isArray(persons) &&
+          this.requiredCSVkyes.every((key) => persons[0].hasOwnProperty(key));
 
-      const areValidKeys = this.displayedColumns.every((i) =>
-        person.hasOwnProperty(i)
-      );
-      if (areValidKeys) {
-        this.files = files;
-        this.openDialog();
-        return;
+        if (areValidCSVKeys) {
+          this.isJsonFile = false
+          this.file = file;
+          this.openDialog();
+          return;
+        }
+      } else {
+        persons = JSON.parse(fileContents);
+        const isValidJson =
+          persons.hasOwnProperty("persons") && Array.isArray(persons.persons);
+        const areValidKeys = this.requiredJSONKyes.every((key) =>
+          persons.persons[0].hasOwnProperty(key)
+        );
+
+        if (isValidJson && areValidKeys) {
+          this.isJsonFile = true
+          this.file = file;
+          this.openDialog();
+          return;
+        }
       }
 
       this.m.showMessage(
         StatusCode.OK,
         "El archivo a importar no cumple con los campos requeridos"
       );
-
-      // if (this.files.length > 0) {
+      // if (this.file.length > 0) {
       //   this.m.showMessage(StatusCode.OK, "Solo se puede seleccionar un archivo");
       // }else {
-      //   this.files.push(...);
+      //   this.file.push(...);
       //   this.openDialog()
     });
   }
 
   showData() {
-    if (this.files.length === 0) {
+    console.log(this.file);
+
+    if (this.file.length === 0) {
       this.m.showMessage(StatusCode.OK, "No hay archivo para mostrar");
     } else {
-      this.readFile(this.files[0]).then((fileContents: string) => {
-        if (this.files[0].type !== "application/json") {
+      this.readFile(this.file[0]).then((fileContents: string) => {
+        if (this.file[0].type !== "application/json") {
           const jsonFile = this.csvToJson(fileContents);
           this.people = JSON.parse(jsonFile);
         } else {
-          this.people = JSON.parse(fileContents).result;
+          this.people = JSON.parse(fileContents).persons;
         }
         // const eliminado = this.people.shift();
         this.dataSource.data =
           this.people.length > 800 ? this.people.slice(0, 800) : this.people;
+          console.log("🚀 ~ file: import-people.component.ts:130 ~ this.readFile ~ this.dataSource.data", this.dataSource.data)
       });
     }
   }
@@ -135,7 +145,7 @@ export class ImportPeopleComponent {
 
   onRemove(event: any) {
     console.log(event);
-    this.files.splice(this.files.indexOf(event), 1);
+    this.file.splice(this.file.indexOf(event), 1);
     this.people = [];
   }
 
@@ -156,13 +166,15 @@ export class ImportPeopleComponent {
   }
 
   saveData() {
-    if (this.files.length === 0) {
+    if (this.file.length === 0) {
       this.m.showMessage(StatusCode.OK, "No hay archivo para guardar");
     } else {
-      this.peopleService.saveImport(this.org.id, this.files[0]).subscribe((response) => {
-        console.log(response);
-        // this.formData.delete("peopleFile");
-      });
+      this.peopleService
+        .saveImport(this.org.id, this.file[0])
+        .subscribe((response) => {
+          console.log(response);
+          // this.formData.delete("peopleFile");
+        });
     }
   }
 
