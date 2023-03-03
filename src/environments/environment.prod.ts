@@ -7,15 +7,15 @@ export class EnvironmentImpl implements Environment {
   cuorHost = 'https://cuba-iroko.sceiba.org/';
   sceibaApi = 'https://cuba-iroko.sceiba.org/api/';
   cuorApi = 'https://cuba-iroko.sceiba.org/api/';
-  
+
   appHost = 'https://sceiba.cu';
   appName = 'Sceiba';
 
   websiteUsername_Twitter = '@SceibaCuba';
   websiteUsername_Facebook = '@sceiba';
 
-  oauthRedirectUri = 'https://sceiba.cu/';
-  oauthClientId = 'ICC1j7NOH0067SgsMyKUXM9ZipavAXHPrbW1ll3V';
+  oauthRedirectUri = 'https://personas-cuba.sceiba.org';
+  oauthClientId = 'h5AguuqkctiMY2mRd429g0846sHLvOdzqqojPXBe';
   oauthScope = 'user:email';
   topOrganizationPID = '';
   cachableUrls = [];
@@ -32,6 +32,19 @@ export class EnvironmentImpl implements Environment {
   vocabularies = 'https://vocabularios.sceiba.cu/';
   moodle = 'https://courses.sceiba.org/';
   evaluations = 'https://evaluaciones.sceiba.org/';
+
+  oauthInfo = {
+    serverHost: this.sceibaHost,
+    loginUrl: this.sceibaHost + 'oauth/internal/authorize',
+    tokenEndpoint: this.sceibaHost + 'oauth/token',
+    userInfoEndpoint: this.sceibaApi + 'me',
+    appHost: this.appHost,
+    appName: this.appName,
+    oauthRedirectUri: this.oauthRedirectUri,
+    oauthClientId: this.oauthClientId,
+    oauthScope: this.oauthScope,
+  }
+
 }
 
 export const environment = new EnvironmentImpl();
