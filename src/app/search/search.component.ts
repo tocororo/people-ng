@@ -4,14 +4,14 @@ import { Component, HostListener, OnInit, ViewChild } from "@angular/core";
 import { MatDrawer, PageEvent } from "@angular/material";
 import { ActivatedRoute, NavigationExtras, Params, Router } from "@angular/router";
 
-import { AggregationsSelection, Organization, OrganizationService, SearchResponse } from "toco-lib";
+import { AggregationsSelection, SearchResponse } from "toco-lib";
 import { PeopleService } from "../people/people.service";
 import { Person } from "../people/person.entity";
 
 
 /**
- * Represents a component that shows the result of a search based on aggregations. 
- * The search result can be showed as a list or charts. 
+ * Represents a component that shows the result of a search based on aggregations.
+ * The search result can be showed as a list or charts.
  */
 @Component({
     selector: "app-search",
@@ -20,22 +20,22 @@ import { Person } from "../people/person.entity";
 })
 export class SearchComponent implements OnInit {
     /**
-     * Represents the `QueryParamKey` enum for internal use. 
+     * Represents the `QueryParamKey` enum for internal use.
      */
     // public readonly queryParamKey: typeof QueryParamKey;
 
     // /**
-    //  * Represents the `ChartType` enum for internal use. 
+    //  * Represents the `ChartType` enum for internal use.
     //  */
     // public readonly chartType: typeof ChartType;
 
     /**
-     * Indicates the search result type. 
-     * Its value is true if the search result is showed as a list. 
-     * Its value is false if the search result is showed as charts. 
-     * By default, its value is `true`. 
+     * Indicates the search result type.
+     * Its value is true if the search result is showed as a list.
+     * Its value is false if the search result is showed as charts.
+     * By default, its value is `true`.
      */
-    private searchResultType: boolean;
+    public searchResultType: boolean;
     public aggrKeys: Array<any>;
     // public currentChartType: ChartType;
 
@@ -47,11 +47,11 @@ export class SearchComponent implements OnInit {
     public aggrsSelection: AggregationsSelection;
 
     /**
-     * The search that was requested as an HTTP request/response body that represents serialized parameters. 
+     * The search that was requested as an HTTP request/response body that represents serialized parameters.
      */
     private params: HttpParams;
     /**
-     * Represents the response of the search. 
+     * Represents the response of the search.
      */
     public sr: SearchResponse<Person>;
     private navigationExtras: NavigationExtras;
@@ -65,7 +65,7 @@ export class SearchComponent implements OnInit {
         private peopleService: PeopleService,
         private activatedRoute: ActivatedRoute,
         private router: Router) {
-        
+
     }
 
     public ngOnInit(): void {
@@ -90,7 +90,7 @@ export class SearchComponent implements OnInit {
             next: (initQueryParams) => {
                 this.aggrsSelection = {};
                 console.log(initQueryParams);
-                
+
 
                 for (let index = 0; index < initQueryParams.keys.length; index++) {
                     const key = initQueryParams.keys[index];
@@ -128,34 +128,34 @@ export class SearchComponent implements OnInit {
     }
 
     /**
-     * Returns the search result type. 
-     * Its value is true if the search result is showed as a list. 
-     * Its value is false if the search result is showed as charts. 
-     * By default, its value is `true`. 
+     * Returns the search result type.
+     * Its value is true if the search result is showed as a list.
+     * Its value is false if the search result is showed as charts.
+     * By default, its value is `true`.
      */
     // public get searchResultType(): boolean {
     //     return this._searchResultType;
     // }
 
     /**
-     * Toggles the view that is used to show the search result. 
-     * If it changes to true, then the search result is showed as a list. 
-     * If it changes to false, then the search result is showed as charts. 
+     * Toggles the view that is used to show the search result.
+     * If it changes to true, then the search result is showed as a list.
+     * If it changes to false, then the search result is showed as charts.
      */
     public changeView(): void {
         this.searchResultType = !this.searchResultType;
     }
 
     /**
-     * Updates the `params` that will be used to fetch the search. 
+     * Updates the `params` that will be used to fetch the search.
      */
     private updateFetchParams(): void {
         this.params = new HttpParams();
-        
+
         this.params = this.params.set("size", this.pageSize.toString(10));
 
         this.params = this.params.set("page", (this.pageIndex + 1).toString(10));
-    
+
         this.params = this.params.set("q", this.query);
         for (const aggrKey in this.aggrsSelection)  /* this.queryParamKey.aggrsSel */ {
             this.aggrsSelection[aggrKey].forEach((bucketKey) => {
@@ -165,18 +165,18 @@ export class SearchComponent implements OnInit {
     }
 
     /**
-     * Fetches the search that was requested using the `_params`. 
+     * Fetches the search that was requested using the `_params`.
      */
     private fetchSearchRequested(): void {
         this.peopleService.getPeople(this.params).subscribe(
             (response: SearchResponse<Person>) => {
                 console.log('fetchSearchRequested', response);
-                
+
                 // this.pageEvent.length = response.hits.total;
                 this.sr = response;
 
-                //TODO: Implement it in another way; this must be done in a generic form. 
-                // Los valores 'País', 'Provincia', etc. deben ser obtenidos genéricamente. 
+                //TODO: Implement it in another way; this must be done in a generic form.
+                // Los valores 'País', 'Provincia', etc. deben ser obtenidos genéricamente.
                 this.aggrKeys = [
                     { value: this.sr.aggregations.country, key: 'País' },
                     { value: this.sr.aggregations.state, key: 'Provincia' },
@@ -220,7 +220,7 @@ export class SearchComponent implements OnInit {
         queryParams["size"] = this.pageSize.toString(10);
 
         queryParams["page"] = this.pageIndex.toString(10);
-    
+
         queryParams["q"] = this.query;
 
         for (const aggrKey in this.aggrsSelection)  /* this.queryParamKey.aggrsSel */ {
@@ -238,7 +238,7 @@ export class SearchComponent implements OnInit {
         this.router.navigate(["."], this.navigationExtras);
     }
 
-    //TODO: What does this code do? 
+    //TODO: What does this code do?
     @HostListener('window:resize', ['$event'])
     public onResize(event: Event): void {
         // console.log("window:resize", window.innerWidth);

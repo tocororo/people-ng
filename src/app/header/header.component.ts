@@ -1,14 +1,14 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, Input, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
+import { OAuthService, OAuthStorage } from 'angular-oauth2-oidc';
+import { Observable, Subscription } from 'rxjs';
 import {
   convertLangFromNumberToString,
   Environment, OauthAuthenticationService, OauthInfo, Response, User
 } from 'toco-lib';
-import { ME, menuHelp } from "./constants";
-import { OAuthService, OAuthStorage } from 'angular-oauth2-oidc';
-import { Observable, Subscription } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
-import { Router } from '@angular/router';
+import { menuHelp } from "./constants";
 
 @Component({
   selector: 'toco-header',
@@ -17,6 +17,7 @@ import { Router } from '@angular/router';
 })
 export class HeaderComponent implements OnInit {
 
+  menuElements: MenuElement[];
   /**
     * Returns the available language texts.
     */
