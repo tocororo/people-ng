@@ -5,8 +5,8 @@ import { MatDrawer, PageEvent } from "@angular/material";
 import { ActivatedRoute, NavigationExtras, Params, Router } from "@angular/router";
 
 import { AggregationsSelection, Organization, OrganizationService, SearchResponse } from "toco-lib";
-import { PeopleService } from "../people.service";
-import { Person } from "../person.entity";
+import { PeopleService } from "../people/people.service";
+import { Person } from "../people/person.entity";
 
 
 /**
