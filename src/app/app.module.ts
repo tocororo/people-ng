@@ -43,6 +43,7 @@ import { allowedURLS, environment } from "src/environments/environment";
 import { NgxDropzoneModule } from "node_modules/ngx-dropzone";
 import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
+import { ContactComponent } from "./contact/contact.component";
 import { FooterComponent } from "./footer/footer.component";
 import { HeaderComponent } from "./header/header.component";
 import { MenuItemComponent } from "./header/menu-item/menu-item.component";
