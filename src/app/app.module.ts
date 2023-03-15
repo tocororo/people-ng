@@ -35,7 +35,7 @@ import {
   SearchService,
   SourceServiceNoAuth,
   StaticsModule,
-  TocoFormsModule
+  TocoFormsModule, OrganizationsModule
 } from "toco-lib";
 
 import { allowedURLS, environment } from "src/environments/environment";
@@ -142,6 +142,7 @@ export function createTranslateLoader(http: HttpClient): TranslateHttpLoader {
     TocoFormsModule,
     SearchModule,
     AuthenticationModule,
+    OrganizationsModule,
 
     AppRoutingModule,
 

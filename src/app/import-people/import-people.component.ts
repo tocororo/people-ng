@@ -25,6 +25,7 @@ export class ImportPeopleComponent {
   org: any;
 
   isJsonFile: boolean = false
+  isOpenDialog: boolean = false
 
   requiredCSVkyes = [
     "apellido1",
@@ -70,6 +71,7 @@ export class ImportPeopleComponent {
           this.isJsonFile = false
           this.file = file;
           this.openDialog();
+          // this.isOpenDialog=true
           return;
         }
       } else {
@@ -84,6 +86,7 @@ export class ImportPeopleComponent {
           this.isJsonFile = true
           this.file = file;
           this.openDialog();
+          // this.isOpenDialog=true
           return;
         }
       }
@@ -192,5 +195,11 @@ export class ImportPeopleComponent {
       console.log("The dialog was closed");
       this.org = result;
     });
+  }
+
+  afterClosed(result) {
+    console.log("🚀 ~ file: import-people.component.ts:201 ~ afterClosed ~ result:", result)
+    this.isOpenDialog=false
+    this.org = result;
   }
 }

@@ -51,7 +51,7 @@ fxLayoutGap="1em"
   *ngIf="people && people.length > 0"
   style="margin: 0 30px"
 >
-  <!-- <h2 style="padding: 20px">{{ org.name }}</h2> -->
+  <h2 style="padding: 20px">{{ org.name }}</h2>
 
   <ng-container  *ngIf="isJsonFile; else csvTable">
     <app-json-table [dataSource]="dataSource"></app-json-table>
@@ -75,3 +75,5 @@ fxLayoutGap="1em"
     Guardar
   </button>
 </div>
+
+<!-- <org-search-dialog [open]="isOpenDialog" (afterClosed)="afterClosed($event)"></org-search-dialog> -->
