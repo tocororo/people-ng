@@ -25,9 +25,9 @@
 <!--  chips row-->
   <div  *ngFor="let ele of chips" class="row" fxLayout.xs="column">
     <span class="title">{{ele | translate}}</span>
-    <mat-chip-list aria-label="Fish selection">
-      <mat-chip *ngFor="let item of person[ele]" color="accent" selected>{{item}}</mat-chip>
-    </mat-chip-list>
+    <mat-chip-listbox aria-label="Fish selection">
+      <mat-chip-option *ngFor="let item of person[ele]" color="accent" selected>{{item}}</mat-chip-option>
+    </mat-chip-listbox>
   </div>
 <!--  accordion row-->
   <div  *ngFor="let ele of accordion" class="row" fxLayout.xs="column">
