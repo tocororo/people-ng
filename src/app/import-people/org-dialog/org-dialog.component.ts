@@ -6,8 +6,8 @@ import {
   OnInit,
   ViewChild,
 } from "@angular/core";
-import { MatDialogRef } from "@angular/material/dialog";
-import { PageEvent } from "@angular/material/paginator";
+import { MatLegacyDialogRef as MatDialogRef } from "@angular/material/legacy-dialog";
+import { LegacyPageEvent as PageEvent } from "@angular/material/legacy-paginator";
 import { MatDrawer } from "@angular/material/sidenav";
 import {
   ActivatedRoute,

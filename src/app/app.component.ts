@@ -1,7 +1,7 @@
 
 import { Component } from '@angular/core';
 import {Router, RoutesRecognized} from '@angular/router';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatLegacySnackBar as MatSnackBar } from '@angular/material/legacy-snack-bar';
 import { TranslateService } from '@ngx-translate/core';
 
 import { convertLangFromNumberToString, Environment } from 'toco-lib';
