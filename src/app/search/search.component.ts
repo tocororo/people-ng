@@ -58,7 +58,7 @@ export class SearchComponent implements OnInit {
 
     public loading: boolean;
 
-    @ViewChild(MatDrawer, { static: false })
+    @ViewChild(MatDrawer)
     public drawer: MatDrawer;
 
     public constructor(

@@ -78,7 +78,7 @@ export class OrgDialogComponent {
   @Input() multipleSelection: boolean = false;
   @Input() header: string = 'Seleccione la organización a que pertenecen las personas a importar.';
 
-  @ViewChild(MatDrawer, { static: false }) drawer: MatDrawer;
+  @ViewChild(MatDrawer) drawer: MatDrawer;
 
   constructor(
     private _cuorService: OrgService,

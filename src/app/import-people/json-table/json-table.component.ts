@@ -11,7 +11,7 @@ export class JsonTableComponent implements OnInit {
   @Input() dataSource
   private paginator: MatPaginator;
 
-  @ViewChild(MatPaginator, { static: false }) set matPaginator(
+  @ViewChild(MatPaginator) set matPaginator(
     mp: MatPaginator
   ) {
     this.paginator = mp;
