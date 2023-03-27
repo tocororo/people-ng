@@ -6,7 +6,9 @@ import {
   OnInit,
   ViewChild,
 } from "@angular/core";
-import { MatDrawer, MatDialogRef, PageEvent } from "@angular/material";
+import { MatDialogRef } from "@angular/material/dialog";
+import { PageEvent } from "@angular/material/paginator";
+import { MatDrawer } from "@angular/material/sidenav";
 import {
   ActivatedRoute,
   NavigationExtras,

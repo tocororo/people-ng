@@ -1,11 +1,8 @@
 import { Component, OnInit, ViewChild, AfterViewInit } from "@angular/core";
-import {
-  MatDialog,
-  MatPaginator,
-  MatSnackBar,
-  MatTableDataSource,
-  PageEvent,
-} from "@angular/material";
+import { MatDialog } from "@angular/material/dialog";
+import { MatPaginator, PageEvent } from "@angular/material/paginator";
+import { MatSnackBar } from "@angular/material/snack-bar";
+import { MatTableDataSource } from "@angular/material/table";
 import { MessageHandler, StatusCode } from "toco-lib";
 import { PeopleService } from "../people/people.service";
 import { ParamMap, Params, Router } from "@angular/router";

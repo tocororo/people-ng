@@ -8,7 +8,9 @@ import { TranslateLoader, TranslateModule } from "@ngx-translate/core";
 import { TranslateHttpLoader } from "@ngx-translate/http-loader";
 import { MarkdownModule } from "ngx-markdown";
 
-import { MatPaginatorModule, MatRadioModule, MatSidenavModule } from "@angular/material";
+import { MatPaginatorModule } from "@angular/material/paginator";
+import { MatRadioModule } from "@angular/material/radio";
+import { MatSidenavModule } from "@angular/material/sidenav";
 import { MatButtonModule } from "@angular/material/button";
 import { MatCardModule } from "@angular/material/card";
 import { MatCheckboxModule } from '@angular/material/checkbox';
