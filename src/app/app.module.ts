@@ -45,14 +45,12 @@ import { allowedURLS, environment } from "src/environments/environment";
 import { NgxDropzoneModule } from "node_modules/ngx-dropzone";
 import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
-import { ContactComponent } from "./contact/contact.component";
 import { FooterComponent } from "./footer/footer.component";
 import { HeaderComponent } from "./header/header.component";
 import { MenuItemComponent } from "./header/menu-item/menu-item.component";
 import { MenuComponent } from "./header/menu/menu.component";
 import { HomeComponent } from "./home/home.component";
-import { ImportPeopleComponent } from "./import-people/import-people.component";
-import { OrgDialogComponent } from "./import-people/org-dialog/org-dialog.component";
+
 import { MainlayoutComponent } from "./layout/mainlayout/mainlayout.component";
 import { PeopleLayoutComponent } from "./layout/people-layout/people-layout.component";
 import { OrgService } from "./org.service";
@@ -62,8 +60,8 @@ import { PeopleViewComponent } from "./people-view/people-view.component";
 import { SearchListComponent } from "./search-list/search-list.component";
 import { SearchComponent } from "./search/search.component";
 import { SelectOrgComponent } from "./select-org/select-org.component";
-import { JsonTableComponent } from './import-people/json-table/json-table.component';
-import { CsvTableComponent } from './import-people/csv-table/csv-table.component';
+import { DataTransformationComponent } from './data-transformation/data-transformation.component';
+
 
 export function storageFactory(): OAuthStorage {
   return localStorage;
@@ -89,12 +87,12 @@ export function createTranslateLoader(http: HttpClient): TranslateHttpLoader {
         HeaderComponent,
         MenuComponent,
         MenuItemComponent,
-        ImportPeopleComponent,
+
         SelectOrgComponent,
-        OrgDialogComponent,
-        ContactComponent,
-        JsonTableComponent,
-        CsvTableComponent,
+         DataTransformationComponent,
+
+
+
     ],
     imports: [
         BrowserModule,

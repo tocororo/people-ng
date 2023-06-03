@@ -1,4 +1,4 @@
-<toco-header  [showMenuLang]="'true'" [icon]="'/assets/icons/apps/persons.svg'" [iconLabel]="'SCEIBA_PERSONAS'" [iconAlt]="'PERSONAS'"></toco-header>
+<toco-header  [showMenuLang]="'true'" [icon]="'/assets/icons/apps/sceiba.svg'" [iconLabel]="'SCEIBA'" [iconAlt]="'SCEIBA'"></toco-header>
 <!-- <mat-menu #menuNetwork="matMenu">
   <a mat-menu-item href="https://www.facebook.com/sceiba/" target="_blank">
       Facebook
@@ -18,7 +18,13 @@
   <app-people-layout *ngSwitchCase="Layouts.People"></app-people-layout>
 </ng-container> -->
 
+<div class="menu-full">
+  <span style="width: 5%;"></span>
+  <ng-container *ngFor="let item of arrayMenuItems">
+    <a mat-button class="font-bold" (click)="changeView(item.routerLink)"target="_blank">{{item.content | translate }}</a>
+  </ng-container>
 
+</div>
 <router-outlet></router-outlet>
 
 <!--<div [ngStyle]="{'margin-top': '2em'}"> -->

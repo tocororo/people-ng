@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "people-ng": {
+    "grahp-ng": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -17,7 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/people-ng",
+            "outputPath": "dist/grahp-ng",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -73,18 +73,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "people-ng:build"
+            "browserTarget": "grahp-ng:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "people-ng:build:production"
+              "browserTarget": "grahp-ng:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "people-ng:build"
+            "browserTarget": "grahp-ng:build"
           }
         },
         "test": {
@@ -108,11 +108,11 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "people-ng:serve"
+            "devServerTarget": "grahp-ng:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "people-ng:serve:production"
+              "devServerTarget": "grahp-ng:serve:production"
             }
           }
         }

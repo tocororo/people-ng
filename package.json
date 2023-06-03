@@ -1,5 +1,5 @@
 {
-  "name": "people-ng",
+  "name": "graph-ng",
   "version": "0.0.0",
   "browser": {
     "fs": false,
