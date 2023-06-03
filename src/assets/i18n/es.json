@@ -72,6 +72,9 @@
     "BUSQUEDA": "Descubre",
     "EVALUACION_APP": "Evaluación",
     "SMOODLE": "S-Moodle",
+    "TRANSFORMACION_DATOS":"Transformación de Datos",
+    "HOME":"Inicio",
+    "CONSULTAS_SPARQL":"Consultas SPARQL",
 
     "FOOTER_TEXT_DEVELOP": "desarrollado con",
     "FOOTER_TEXT_AND": "y",

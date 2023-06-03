@@ -1,54 +1,28 @@
 <toco-header  [showMenuLang]="'true'" [icon]="'/assets/icons/apps/sceiba.svg'" [iconLabel]="'SCEIBA'" [iconAlt]="'SCEIBA'"></toco-header>
-<!-- <mat-menu #menuNetwork="matMenu">
-  <a mat-menu-item href="https://www.facebook.com/sceiba/" target="_blank">
-      Facebook
-  </a>
-  <a mat-menu-item href="https://twitter.com/SceibaCu" target="_blank">
-      Twitter
-  </a>
-  <a mat-menu-item href="https://github.com/tocororo" target="_blank">
-      GitHub
-  </a>
-</mat-menu> -->
-
-
-
-<!-- <ng-container [ngSwitch]="layout">
-  <app-mainlayout *ngSwitchCase="Layouts.Main"></app-mainlayout>
-  <app-people-layout *ngSwitchCase="Layouts.People"></app-people-layout>
-</ng-container> -->
 
 <div class="menu-full">
   <span style="width: 5%;"></span>
-  <ng-container *ngFor="let item of arrayMenuItems">
-    <a mat-button class="font-bold" [routerLink]="[item.routerlink]" routerLinkActive="active" >{{item.content | translate }}</a>
+  <ng-container *ngFor="let item of arrayMenuItems,let i">
+    <a mat-button class="font-bold" (click)="changeFontContent(i)" [routerLink]="[item.routerlink]" routerLinkActive="active" >{{item.content | translate }}</a>
   </ng-container>
 
 </div>
 <section class="toolbar-main" fxLayout="column" fxLayoutAlign="center center">
   <div class=" bg-primary-color div-container" fxLayoutAlign="center center">
     <div class=" div-font">
-        <h3 class="mat-display-2">{{ 'SCEIBA_PERSONAS' | translate }}</h3>
-        <h3 class="mat-h2" >{{ 'SCEIBA_PERSONAS_SUB' | translate }}</h3>
-        <!-- mat-subheading-2 -->
+        <h3 class="mat-display-2">{{ view_title | translate }}</h3>
     </div>
 </div>
-<div class="w-100" fxLayout="row" fxLayoutAlign="center center">
-  <div class="w-80" style="margin: 1em 0;">
 
-  </div>
-</div>
 
 
 </section>
 
 
 <router-outlet></router-outlet>
-
-<!--<div [ngStyle]="{'margin-top': '2em'}"> -->
 <app-footer
   [sites]="footerSites"
   [information]="footerInformation"
 >
 </app-footer>
-<!-- </div> -->
+

@@ -74,6 +74,10 @@
     "BUSQUEDA": "Discover",
     "EVALUACION_APP": "Evaluation",
     "SMOODLE": "S-Moodle",
+    "TRANSFORMACION_DATOS":"Data Transformation",
+    "HOME":"Home",
+    "CONSULTAS_SPARQL":" SPARQL Queries",
+
 
     "TOCO_SEARCH_QUERY_INPUT": {
         "INPUT_SEARCH_LABEL": "Search",
