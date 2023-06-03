@@ -62,6 +62,8 @@ import { SearchComponent } from "./search/search.component";
 import { SelectOrgComponent } from "./select-org/select-org.component";
 import { DataTransformationComponent } from './data-transformation/data-transformation.component';
 
+import { SparqlQueryViewComponent } from './sparql-query-view/sparql-query-view.component';
+
 
 export function storageFactory(): OAuthStorage {
   return localStorage;
@@ -90,6 +92,8 @@ export function createTranslateLoader(http: HttpClient): TranslateHttpLoader {
 
         SelectOrgComponent,
          DataTransformationComponent,
+         SparqlQueryViewComponent,
+         SparqlQueryViewComponent,
 
 
 

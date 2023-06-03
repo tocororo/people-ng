@@ -47,8 +47,8 @@ export class AppComponent
    * by carlosmonterrey17@gmail.com
    */
   public arrayMenuItems=[{content:"Home",routerlink:"/"},
-  {content:"Data Transformation",routerlink:"data"},
-  {content:" SPARQL Queryes",routerlink:"/"}]
+  {content:"Data Transformation",routerlink:"/data"},
+  {content:" SPARQL Queryes",routerlink:"query"}]
 
 	public constructor(private _env: Environment,
 		// private _matomoInjector: MatomoInjector,
@@ -116,9 +116,5 @@ export class AppComponent
 	{
 		return this._router.url == '/';
 	}
-  public  changeView(routerlink )
-	{console.log(123);
 
-		return this._router.url == routerlink;
-	}
 }

@@ -21,10 +21,28 @@
 <div class="menu-full">
   <span style="width: 5%;"></span>
   <ng-container *ngFor="let item of arrayMenuItems">
-    <a mat-button class="font-bold" (click)="changeView(item.routerLink)"target="_blank">{{item.content | translate }}</a>
+    <a mat-button class="font-bold" [routerLink]="[item.routerlink]" routerLinkActive="active" >{{item.content | translate }}</a>
   </ng-container>
 
 </div>
+<section class="toolbar-main" fxLayout="column" fxLayoutAlign="center center">
+  <div class=" bg-primary-color div-container" fxLayoutAlign="center center">
+    <div class=" div-font">
+        <h3 class="mat-display-2">{{ 'SCEIBA_PERSONAS' | translate }}</h3>
+        <h3 class="mat-h2" >{{ 'SCEIBA_PERSONAS_SUB' | translate }}</h3>
+        <!-- mat-subheading-2 -->
+    </div>
+</div>
+<div class="w-100" fxLayout="row" fxLayoutAlign="center center">
+  <div class="w-80" style="margin: 1em 0;">
+
+  </div>
+</div>
+
+
+</section>
+
+
 <router-outlet></router-outlet>
 
 <!--<div [ngStyle]="{'margin-top': '2em'}"> -->
