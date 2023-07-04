@@ -14,8 +14,6 @@
           </span>
         </h2>
 
-        <span *ngIf="hit.metadata.established != -1" class="p-40">Fundada en: {{hit.metadata.established}}</span>
-
         <ul fxLayout="row wrap" *ngIf="hit.metadata.types && hit.metadata.types.length > 0">
           <span>Tipos:</span>
           <li *ngFor="let type of hit.metadata.types; let i = index" class="li-margin-style">
@@ -43,7 +41,9 @@
         <ul fxLayout="row wrap" *ngIf="hit.metadata.identifiers && hit.metadata.identifiers.length > 0">
           <span>Identificadores:</span>
           <li *ngFor="let identifier of hit.metadata.identifiers; let i = index" class="li-margin-style">
+            <ng-container *ngIf="identifier.idtype !== 'dni'">
             {{identifier.idtype}}: {{identifier.value}}
+            </ng-container>
             <ng-container *ngIf="i < hit.metadata.identifiers.length - 1"> | </ng-container>
           </li>
         </ul>
