@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, Resolve, Router, RouterStateSnapshot } from '@angular/router';
+import { ActivatedRouteSnapshot, Router, RouterStateSnapshot } from '@angular/router';
 import { Observable, of, Subject } from 'rxjs';
 import { catchError, map, take } from 'rxjs/operators';
 import { SearchResponse } from 'toco-lib';
@@ -45,7 +45,7 @@ export class ShowErrorService {
 @Injectable({
 	providedIn: 'root',
 })
-export class PeopleActiveResolverService implements Resolve<SearchResponse<Person>>
+export class PeopleActiveResolverService 
 {
 	public constructor(
     private router: Router,
