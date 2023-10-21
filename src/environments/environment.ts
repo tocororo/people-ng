@@ -27,7 +27,7 @@ export class EnvironmentImpl implements Environment {
   websiteUsername_Facebook = '@sceiba';
 
   oauthRedirectUri = 'https://localhost:4200/';
-  oauthClientId = 'DBDJOwtCoAxSfKEtjuMcUilXTusd6wfi7nt9fBK6';
+  oauthClientId = 'vvi64JKH9LxtFs6RbBFI3ERrfxcYWYd0QltCPXnK';
   oauthScope = 'user:email';
   topOrganizationPID = '';
   cachableUrls = [];
