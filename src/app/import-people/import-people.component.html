@@ -9,9 +9,8 @@ fxLayoutGap="1em"
 >
 </app-select-org> -->
 
-
 <div class="container">
-  <h1 style="padding-bottom: 20px;">Importar personas</h1>
+  <h1 style="padding-bottom: 20px">Importar personas</h1>
   <div class="instructions">
     <div>
       <p>
@@ -20,7 +19,7 @@ fxLayoutGap="1em"
       </p>
     </div>
     <div
-    class="instructions-markdown"
+      class="instructions-markdown"
       style="margin: 0"
       markdown
       [src]="'/assets/markdown/import.instructions.es.md'"
@@ -53,80 +52,14 @@ fxLayoutGap="1em"
   style="margin: 0 30px"
 >
   <h2 style="padding: 20px">{{ org.name }}</h2>
-  <table mat-table [dataSource]="dataSource">
-    <!-- Name Column -->
-    <ng-container matColumnDef="name">
-      <th mat-header-cell *matHeaderCellDef>Nombre</th>
-      <td mat-cell *matCellDef="let element">
-        {{ element.name | titlecase }}
-      </td>
-    </ng-container>
 
-    <!-- LastName1 Column -->
-    <ng-container matColumnDef="lastName">
-      <th mat-header-cell *matHeaderCellDef>Apellidos</th>
-      <td mat-cell *matCellDef="let element">
-        {{ element.lastName | titlecase }}
-      </td>
-    </ng-container>
+  <ng-container  *ngIf="isJsonFile; else csvTable">
+    <app-json-table [dataSource]="dataSource"></app-json-table>
+  </ng-container>
 
-    <!-- Lastname2 Column -->
-    <ng-container matColumnDef="aliases">
-      <th mat-header-cell *matHeaderCellDef>Aliases</th>
-      <td mat-cell *matCellDef="let element">
-        <div *ngFor="let alias of element.aliases">{{ alias | titlecase }}</div>
-      </td>
-    </ng-container>
-
-    <!-- Country Column -->
-    <ng-container matColumnDef="gender">
-      <th mat-header-cell *matHeaderCellDef>Sexo</th>
-      <td mat-cell *matCellDef="let element">{{ element.gender }}</td>
-    </ng-container>
-
-    <!-- Gender Column -->
-    <ng-container matColumnDef="country">
-      <th mat-header-cell *matHeaderCellDef>País</th>
-      <td mat-cell *matCellDef="let element">{{ element.country }}</td>
-    </ng-container>
-
-    <!-- Institutional Email Column -->
-    <ng-container matColumnDef="institutional_email">
-      <th mat-header-cell *matHeaderCellDef>Email Institucional</th>
-      <td mat-cell *matCellDef="let element">
-        {{ element.institutional_email }}
-      </td>
-    </ng-container>
-
-    <!-- External_Email Column -->
-    <ng-container matColumnDef="emails">
-      <th mat-header-cell *matHeaderCellDef>Emails</th>
-      <td mat-cell *matCellDef="let element">
-        <div *ngFor="let email of element.externals_email">{{ email }}</div>
-      </td>
-    </ng-container>
-
-    <!-- Aliases Column -->
-    <!-- <ng-container matColumnDef="aliases">
-      <th mat-header-cell *matHeaderCellDef>Aliases</th>
-      <td mat-cell *matCellDef="let element">
-        <mat-list role="list" *ngFor="let item of element.aliases">
-          <mat-list-item role="listitem">{{item}}</mat-list-item>
-        </mat-list>
-
-      </td>
-    </ng-container> -->
-
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
-  </table>
-
-  <mat-paginator
-    #paginator
-    [pageSize]="10"
-    [pageSizeOptions]="[5, 10, 20]"
-    showFirstLastButtons
-  ></mat-paginator>
+  <ng-template  #csvTable>
+    <app-csv-table [dataSource]="dataSource"></app-csv-table>
+  </ng-template>
 </div>
 
 <div class="button-container">
@@ -142,3 +75,5 @@ fxLayoutGap="1em"
     Guardar
   </button>
 </div>
+
+<!-- <org-search-dialog [open]="isOpenDialog" (afterClosed)="afterClosed($event)"></org-search-dialog> -->

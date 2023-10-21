@@ -1,6 +1,6 @@
 <toco-progress [loading]="loading"></toco-progress>
 
-<h2>{{header}}</h2>
+<h2>{{ header }}</h2>
 
 <mat-drawer-container autosize style="background-color: white">
   <mat-drawer #drawer mode="side" opened position="start">
@@ -164,5 +164,13 @@
   </div>
 
   <button mat-button (click)="onNoClick()">No Thanks</button>
-  <button mat-button [mat-dialog-close]="selectedOrgs" cdkFocusInitial>Ok</button>
+  <button
+    style="margin-left: 8px"
+    mat-raised-button
+    color="primary"
+    [mat-dialog-close]="selectedOrgs"
+    cdkFocusInitial
+  >
+    Ok
+  </button>
 </mat-drawer-container>

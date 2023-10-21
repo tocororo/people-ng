@@ -6,7 +6,7 @@
 >
     <span class="mat-h2">{{ 'TOCO_SEARCH_SEARCH.SPAN_SEARCH_LABEL' | translate }}</span>
 
-    <ng-container *ngIf="searchResultType; then thenTemplate_SearchListButton else elseTemplate_SearchChartsButton"></ng-container>
+    <!-- <ng-container *ngIf="searchResultType; then thenTemplate_SearchListButton else elseTemplate_SearchChartsButton"></ng-container>
 
     <ng-template #thenTemplate_SearchListButton>
         <button mat-icon-button matTooltip="{{ 'TOCO_SEARCH_SEARCH.BUTTON_SHOW_STATS_TOOLTIP' | translate }}" (click)="changeView()">
@@ -18,7 +18,7 @@
         <button mat-icon-button matTooltip="{{ 'TOCO_SEARCH_SEARCH.BUTTON_SHOW_LIST_TOOLTIP' | translate }}" (click)="changeView()">
             <mat-icon>list</mat-icon>
         </button>
-    </ng-template>
+    </ng-template> -->
 </div>
 
 <toco-progress [loading]="loading"></toco-progress>

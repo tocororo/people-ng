@@ -35,7 +35,7 @@ import {
   SearchService,
   SourceServiceNoAuth,
   StaticsModule,
-  TocoFormsModule
+  TocoFormsModule, OrganizationsModule
 } from "toco-lib";
 
 import { allowedURLS, environment } from "src/environments/environment";
@@ -60,6 +60,8 @@ import { PeopleViewComponent } from "./people-view/people-view.component";
 import { SearchListComponent } from "./search-list/search-list.component";
 import { SearchComponent } from "./search/search.component";
 import { SelectOrgComponent } from "./select-org/select-org.component";
+import { JsonTableComponent } from './import-people/json-table/json-table.component';
+import { CsvTableComponent } from './import-people/csv-table/csv-table.component';
 
 export function storageFactory(): OAuthStorage {
   return localStorage;
@@ -90,6 +92,8 @@ export function createTranslateLoader(http: HttpClient): TranslateHttpLoader {
     SelectOrgComponent,
     OrgDialogComponent,
     ContactComponent,
+    JsonTableComponent,
+    CsvTableComponent,
   ],
   imports: [
     BrowserModule,
@@ -138,6 +142,7 @@ export function createTranslateLoader(http: HttpClient): TranslateHttpLoader {
     TocoFormsModule,
     SearchModule,
     AuthenticationModule,
+    OrganizationsModule,
 
     AppRoutingModule,
 
