@@ -6,7 +6,9 @@ import {
   OnInit,
   ViewChild,
 } from "@angular/core";
-import { MatDrawer, MatDialogRef, PageEvent } from "@angular/material";
+import { MatDialogRef } from "@angular/material/dialog";
+import { PageEvent } from "@angular/material/paginator";
+import { MatDrawer } from "@angular/material/sidenav";
 import {
   ActivatedRoute,
   NavigationExtras,
@@ -78,7 +80,7 @@ export class OrgDialogComponent {
   @Input() multipleSelection: boolean = false;
   @Input() header: string = 'Seleccione la organización a que pertenecen las personas a importar.';
 
-  @ViewChild(MatDrawer, { static: false }) drawer: MatDrawer;
+  @ViewChild(MatDrawer) drawer: MatDrawer;
 
   constructor(
     private _cuorService: OrgService,

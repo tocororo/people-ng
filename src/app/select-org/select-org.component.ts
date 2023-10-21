@@ -4,7 +4,7 @@
  */
 
 import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
-import { FormBuilder, FormGroup } from "@angular/forms";
+import { UntypedFormBuilder, UntypedFormGroup } from "@angular/forms";
 import { ParamMap, Params } from "@angular/router";
 import {
   ContainerPanelComponent,
@@ -39,7 +39,7 @@ export class SelectOrgComponent implements OnInit {
   paramsChange: EventEmitter<Params> = new EventEmitter();
 
   filterPanel: PanelContent = null;
-  formGroup: FormGroup;
+  formGroup: UntypedFormGroup;
 
   institutionTree: SelectOptionNode[] = [];
   institutionSelection: FlatTreeNode[];
@@ -48,7 +48,7 @@ export class SelectOrgComponent implements OnInit {
 
   selectedOrgs: string = ""
 
-  constructor(private _formBuilder: FormBuilder) {}
+  constructor(private _formBuilder: UntypedFormBuilder) {}
 
   ngOnInit() {
     this.initPanels();

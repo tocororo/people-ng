@@ -1,7 +1,8 @@
 
 import { HttpParams } from "@angular/common/http";
 import { Component, HostListener, OnInit, ViewChild } from "@angular/core";
-import { MatDrawer, PageEvent } from "@angular/material";
+import { PageEvent } from "@angular/material/paginator";
+import { MatDrawer } from "@angular/material/sidenav";
 import { ActivatedRoute, NavigationExtras, Params, Router } from "@angular/router";
 
 import { AggregationsSelection, SearchResponse } from "toco-lib";
@@ -58,7 +59,7 @@ export class SearchComponent implements OnInit {
 
     public loading: boolean;
 
-    @ViewChild(MatDrawer, { static: false })
+    @ViewChild(MatDrawer)
     public drawer: MatDrawer;
 
     public constructor(

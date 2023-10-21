@@ -8,7 +8,9 @@ import { TranslateLoader, TranslateModule } from "@ngx-translate/core";
 import { TranslateHttpLoader } from "@ngx-translate/http-loader";
 import { MarkdownModule } from "ngx-markdown";
 
-import { MatPaginatorModule, MatRadioModule, MatSidenavModule } from "@angular/material";
+import { MatPaginatorModule } from "@angular/material/paginator";
+import { MatRadioModule } from "@angular/material/radio";
+import { MatSidenavModule } from "@angular/material/sidenav";
 import { MatButtonModule } from "@angular/material/button";
 import { MatCardModule } from "@angular/material/card";
 import { MatCheckboxModule } from '@angular/material/checkbox';
@@ -72,95 +74,90 @@ export function createTranslateLoader(http: HttpClient): TranslateHttpLoader {
 }
 
 @NgModule({
-  exports: [MainlayoutComponent, PeopleLayoutComponent],
-  entryComponents: [OrgDialogComponent],
-  declarations: [
-    AppComponent,
-    HomeComponent,
-    PageNotFoundPeopleComponent,
-    FooterComponent,
-    SearchComponent,
-    SearchListComponent,
-    PeopleViewComponent,
-    MainlayoutComponent,
-    PeopleLayoutComponent,
-    GeneralTabComponent,
-    HeaderComponent,
-    MenuComponent,
-    MenuItemComponent,
-    ImportPeopleComponent,
-    SelectOrgComponent,
-    OrgDialogComponent,
-    ContactComponent,
-    JsonTableComponent,
-    CsvTableComponent,
-  ],
-  imports: [
-    BrowserModule,
-    BrowserAnimationsModule,
-    HttpClientModule,
-    MatTableModule,
-    MatPaginatorModule,
-    NgxDropzoneModule,
-    TranslateModule.forRoot({
-      loader: {
-        provide: TranslateLoader,
-        useFactory: createTranslateLoader,
-        deps: [HttpClient],
-      },
-    }),
-    ReactiveFormsModule,
-    FlexLayoutModule,
-    MarkdownModule.forRoot({
-      loader: HttpClient,
-    }),
-
-    MatButtonModule,
-    MatTooltipModule,
-    MatMenuModule,
-    MatIconModule,
-    MatToolbarModule,
-    MatDividerModule,
-    MatCardModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatSnackBarModule,
-    MatSidenavModule,
-    MatPaginatorModule,
-    MatTabsModule,
-    MatChipsModule,
-    MatExpansionModule,
-    MatListModule,
-    TocoFormsModule,
-    MatRadioModule,
-    MatCheckboxModule,
-    FormsModule,
-
-    AngularMaterialModule,
-    CoreModule,
-    StaticsModule,
-    TocoFormsModule,
-    SearchModule,
-    AuthenticationModule,
-    OrganizationsModule,
-
-    AppRoutingModule,
-
-    OAuthModule.forRoot({
-      resourceServer: {
-        allowedUrls: allowedURLS,
-        sendAccessToken: true,
-      },
-    }),
-  ],
-  providers: [
-    SearchService,
-    SourceServiceNoAuth,
-    OrganizationServiceNoAuth,
-    OrgService,
-    { provide: Environment, useValue: environment },
-    { provide: OAuthStorage, useFactory: storageFactory },
-  ],
-  bootstrap: [AppComponent],
+    exports: [MainlayoutComponent, PeopleLayoutComponent],
+    declarations: [
+        AppComponent,
+        HomeComponent,
+        PageNotFoundPeopleComponent,
+        FooterComponent,
+        SearchComponent,
+        SearchListComponent,
+        PeopleViewComponent,
+        MainlayoutComponent,
+        PeopleLayoutComponent,
+        GeneralTabComponent,
+        HeaderComponent,
+        MenuComponent,
+        MenuItemComponent,
+        ImportPeopleComponent,
+        SelectOrgComponent,
+        OrgDialogComponent,
+        ContactComponent,
+        JsonTableComponent,
+        CsvTableComponent,
+    ],
+    imports: [
+        BrowserModule,
+        BrowserAnimationsModule,
+        HttpClientModule,
+        MatTableModule,
+        MatPaginatorModule,
+        NgxDropzoneModule,
+        TranslateModule.forRoot({
+            loader: {
+                provide: TranslateLoader,
+                useFactory: createTranslateLoader,
+                deps: [HttpClient],
+            },
+        }),
+        ReactiveFormsModule,
+        FlexLayoutModule,
+        MarkdownModule.forRoot({
+            loader: HttpClient,
+        }),
+        MatButtonModule,
+        MatTooltipModule,
+        MatMenuModule,
+        MatIconModule,
+        MatToolbarModule,
+        MatDividerModule,
+        MatCardModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatSnackBarModule,
+        MatSidenavModule,
+        MatPaginatorModule,
+        MatTabsModule,
+        MatChipsModule,
+        MatExpansionModule,
+        MatListModule,
+        TocoFormsModule,
+        MatRadioModule,
+        MatCheckboxModule,
+        FormsModule,
+        AngularMaterialModule,
+        CoreModule,
+        StaticsModule,
+        TocoFormsModule,
+        SearchModule,
+        AuthenticationModule,
+        OrganizationsModule,
+        AppRoutingModule,
+        OAuthModule.forRoot({
+            resourceServer: {
+                allowedUrls: allowedURLS,
+                sendAccessToken: true,
+            },
+        }),
+    ],
+    providers: [
+        SearchService,
+        SourceServiceNoAuth,
+        OrganizationServiceNoAuth,
+        OrgService,
+        { provide: Environment, useValue: environment },
+        { provide: OAuthStorage, useFactory: storageFactory },
+    ],
+    bootstrap: [AppComponent]
 })
 export class AppModule {}

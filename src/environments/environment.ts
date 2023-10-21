@@ -9,7 +9,7 @@
  * This import should be commented out in production mode because it will have a negative impact
  * on performance if an error is thrown.
  */
-// import 'zone.js/dist/zone-error';  // Included with Angular CLI.
+// import 'zone.js/plugins/zone-error';  // Included with Angular CLI.
 
 import { Environment } from "toco-lib";
 
@@ -27,7 +27,7 @@ export class EnvironmentImpl implements Environment {
   websiteUsername_Facebook = '@sceiba';
 
   oauthRedirectUri = 'https://localhost:4200/';
-  oauthClientId = 'DBDJOwtCoAxSfKEtjuMcUilXTusd6wfi7nt9fBK6';
+  oauthClientId = 'vvi64JKH9LxtFs6RbBFI3ERrfxcYWYd0QltCPXnK';
   oauthScope = 'user:email';
   topOrganizationPID = '';
   cachableUrls = [];

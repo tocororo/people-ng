@@ -28,10 +28,10 @@ fxLayoutGap="1em"
 
   <ngx-dropzone (change)="onSelect($event)" accept=".csv,.json">
     <ngx-dropzone-label>
-      <mat-icon style="font-size: 100px">person_add</mat-icon>
+      <mat-icon style="font-size: 100px; width: 0; height: 0;">person_add</mat-icon>
     </ngx-dropzone-label>
     <ngx-dropzone-preview
-      *ngFor="let f of files"
+      *ngFor="let f of file"
       [removable]="true"
       (removed)="onRemove(f)"
     >
@@ -68,6 +68,7 @@ fxLayoutGap="1em"
     mat-raised-button
     (click)="showData()"
     color="primary"
+    style="margin-right: 10px;"
   >
     Mostrar
   </button>
