@@ -13,20 +13,21 @@ import { MatTableModule } from "@angular/material/table";
 
 import { OAuthModule, OAuthStorage } from "angular-oauth2-oidc";
 import {
-  AuthenticationModule,
-  CoreModule,
-  Environment, OrganizationServiceNoAuth,
-  OrganizationsModule,
-  SearchModule,
-  SearchService,
-  SourceServiceNoAuth,
-  StaticsModule,
-  TocoFormsModule
+    AuthenticationModule,
+    CoreModule,
+    Environment, OrganizationServiceNoAuth,
+    OrganizationsModule,
+    SearchModule,
+    SearchService,
+    SourceServiceNoAuth,
+    StaticsModule,
+    TocoFormsModule
 } from "toco-lib";
 
 import { allowedURLS, environment } from "src/environments/environment";
 
 import { NgxDropzoneModule } from "node_modules/ngx-dropzone";
+import { OrgService } from "./_services/org.service";
 import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
 import { ContactComponent } from "./contact/contact.component";
@@ -41,7 +42,6 @@ import { JsonTableComponent } from './import-people/json-table/json-table.compon
 import { OrgDialogComponent } from "./import-people/org-dialog/org-dialog.component";
 import { MainlayoutComponent } from "./layout/mainlayout/mainlayout.component";
 import { PeopleLayoutComponent } from "./layout/people-layout/people-layout.component";
-import { OrgService } from "./org.service";
 import { PageNotFoundPeopleComponent } from "./page-not-found-people/page-not-found-people.component";
 import { GeneralTabComponent } from "./people-view/general-tab/general-tab.component";
 import { PeopleViewComponent } from "./people-view/people-view.component";
