@@ -15,7 +15,7 @@ export class EnvironmentImpl implements Environment {
   websiteUsername_Facebook = '@sceiba';
 
   oauthRedirectUri = 'https://cuba-personas.sceiba.org';
-  oauthClientId = 'h5AguuqkctiMY2mRd429g0846sHLvOdzqqojPXBe';
+  oauthClientId = 'LYnMUzdJDrOtMDQY7fXicXuSdXYuaUtCwjRh1olp';
   oauthScope = 'user:email';
   topOrganizationPID = '';
   cachableUrls = [];
