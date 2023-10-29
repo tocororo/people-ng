@@ -40,7 +40,7 @@ export class EnvironmentImpl implements Environment {
   catalog = 'https://cuba-catalogo.sceiba.org/';
   revistasmes = 'https://cuba-revistasmes.sceiba.org/';
   organizations = 'https://cuba-organizaciones.sceiba.org/';
-  persons = 'https://cuba-personas.sceiba.org/';
+  persons = '';
   vocabularies = 'https://vocabularios.sceiba.cu/';
   moodle = 'https://courses.sceiba.org/';
   evaluations = 'https://evaluaciones.sceiba.org/';
